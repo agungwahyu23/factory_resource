@@ -65,6 +65,12 @@ $route['item-add'] =   'Item/add';
 $route['item-update/(:any)'] =   'Item/update/$1';
 $route['item-detail/(:any)'] =   'Item/detail/$1';
 
+/* request */
+$route['request'] =   'Request/index';
+$route['request-add'] =   'Request/add';
+$route['request-update/(:any)'] =   'Request/update/$1';
+$route['request-detail/(:any)'] =   'Request/detail/$1';
+
 /* User */
 $route['user'] =   'User/index';
 $route['user-add'] =   'User/add';

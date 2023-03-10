@@ -31,6 +31,7 @@ class Auth extends CI_Controller {
 				'name_of_employee' => $user['name_of_employee'],
 				'level' => $user['level'],
 				'id' => $user['id'],
+				'company' => $user['company'],
 			];
 				$this->session->set_userdata($session_data);
 				if ($user['level'] == '1' || $user['level'] == '2') {
