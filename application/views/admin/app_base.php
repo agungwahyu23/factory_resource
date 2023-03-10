@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gohibachi - Dashboard</title>
+    <title>Factory Resource - Website</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

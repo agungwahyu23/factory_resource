@@ -6,38 +6,39 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Please add data
+                    Input data
                 </div>
                 <div class="card-body">
                     <form id="form-add" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" autocomplete="off"
-                                placeholder="Enter Name" required>
+                            <label for="code">Code</label>
+                            <input type="text" class="form-control" name="code" id="code" value="<?= $code ?>" autocomplete="off" readonly
+                                placeholder="Enter Name">
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" autocomplete="off"
-                                placeholder="Enter Email">
+                            <label for="name">Name*</label>
+                            <input type="text" class="form-control" name="name" id="name" autocomplete="off"
+                                placeholder="Enter Item Name" required>
                         </div>
                         <div class=" form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone" autocomplete="off"
-                                placeholder="Enter Phone">
+                            <label for="price">Price</label>
+                            <input type="text" class="form-control" name="price" id="price" autocomplete="off"
+                                placeholder="Enter Item Price">
                         </div>
                         <div class=" form-group">
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" value="1">Male
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" value="0">Female
-                                </label>
-                            </div>
+                            <label for="stock">Stock</label>
+                            <input type="text" class="form-control" name="stock" id="stock" autocomplete="off"
+                                placeholder="Enter Item Stock">
+                        </div>
+                        <div class=" form-group">
+                            <label for="unit">Unit</label>
+                            <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
+                                placeholder="Enter Unit Item">
+                        </div>
+                        <div class=" form-group">
+                            <label for="warehouse_id">Warehouse</label>
+                            <input type="text" class="form-control" name="warehouse_id" id="warehouse_id" autocomplete="off"
+                                placeholder="Enter warehouse">
                         </div>
                         <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
@@ -58,17 +59,14 @@
 <script type="text/javascript">
 $('#form-add').submit(function(e) {
     var data = $(this).serialize();
-    // var data = new FormData($(this)[0]);
     $.ajax({
-            // method: 'POST',
             beforeSend: function() {
                 $(".loading2").show();
                 $(".loading2").modal('show');
             },
-            url: '<?php echo base_url('Chef/prosesAdd'); ?>',
+            url: '<?php echo base_url('Item/prosesAdd'); ?>',
             type: "post",
             enctype: "multipart/form-data",
-            // data: data,
             data: new FormData(this),
             processData: false,
             contentType: false,
@@ -99,7 +97,7 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-        var link = '<?php echo base_url("chef.html") ?>';
+        var link = '<?php echo base_url("item") ?>';
         window.location.replace(link);
     });
 }

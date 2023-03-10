@@ -51,15 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // frontend
-$route['default_controller'] = 'frontend/Home/index';
-$route['index'] = 'frontend/Home/index';
-$route['about'] = 'frontend/Home/about';
-$route['package'] = 'frontend/Home/package';
-$route['order/(:any)'] = 'frontend/Home/order/$1';
-$route['send_wa/(:any)'] = 'frontend/Home/send_wa/$1';
-$route['contact'] = 'frontend/Home/contact';
-$route['question'] = 'frontend/Home/send_question';
-$route['detail/(:any)'] = 'frontend/Home/detail/$1';
+$route['default_controller'] = 'Auth/index';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
@@ -67,36 +59,11 @@ $route['translate_uri_dashes'] = FALSE;
 $route['dashboard'] =   'Dashboard/index';
 $route['log-sign'] =   'Auth/index';
 
-/* produk */
-$route['user_group'] =   'UserGroup/index';
-$route['user_group/add'] =   'Master/Product/add';
-$route['user_group/edit/(:any)'] =   'Master/Product/edit/$1';
-
-/* Chef */
-$route['chef'] =   'Chef/index';
-$route['chef-add'] =   'Chef/add';
-$route['chef-update/(:any)'] =   'Chef/update/$1';
-
-/* Promo     */
-$route['promo'] =   'Promo/index';
-$route['promo-add'] =   'Promo/add';
-$route['promo-update/(:any)'] =   'Promo/update/$1';
-$route['promo-detail/(:any)'] =   'Promo/detail/$1';
-
-/* Package */
-$route['admin-package'] =   'Package/index';
-$route['package-add'] =   'Package/add';
-$route['package-update/(:any)'] =   'Package/update/$1';
-$route['package-detail/(:any)'] =   'Package/detail/$1';
-$route['package-image/(:any)'] =   'Package/image/$1';
-$route['package-listimage/(:any)'] =   'Package/ajax_image/$1';
-$route['package-schedule/(:any)'] =   'Package/schedule/$1';
-$route['package-listschedule/(:any)'] =   'Package/ajax_schedule/$1';
-
-/* Order */
-$route['order'] =   'Order/index';
-$route['order-add'] =   'Order/add';
-$route['order-detail/(:any)'] =   'Order/detail/$1';
+/* item manajemen */
+$route['item'] =   'Item/index';
+$route['item-add'] =   'Item/add';
+$route['item-update/(:any)'] =   'Item/update/$1';
+$route['item-detail/(:any)'] =   'Item/detail/$1';
 
 /* User */
 $route['user'] =   'User/index';

@@ -2,8 +2,7 @@
 <div class="col-xl-12 col-lg-12 col-md-12">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <!-- <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> -->
-            <a href="<?= site_url('user-add') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a href="<?= site_url('item-add') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-plus fa-sm text-white-50"></i> Add Data</a>
         </div>
         <div class="card-body">
@@ -12,10 +11,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Package ID</th>
+                            <th>Code</th>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>Stock</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,7 +46,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('Order/ajax_list') ?>",
+            "url": "<?php echo site_url('Item/ajax_list') ?>",
             "type": "POST"
 
         },
@@ -67,7 +65,7 @@ function reload_table() {
     table.ajax.reload(null, false); //reload datatable ajax 
 }
 
-$(document).on("click", ".delete-order", function() {
+$(document).on("click", ".delete-item", function() {
     var id = $(this).attr("data-id");
     Swal.fire({
         title: 'Delete data?',
@@ -81,7 +79,7 @@ $(document).on("click", ".delete-order", function() {
         if (result.isConfirmed) {
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url('Order/delete'); ?>",
+                url: "<?php echo base_url('Item/delete'); ?>",
                 data: "id=" + id,
                 success: function(data) {
                     $("tr[data-id='" + id + "']").fadeOut("fast",

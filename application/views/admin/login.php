@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gohibachi - Login</title>
+    <title>Factory Resource - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -97,15 +97,10 @@
                             Swal.fire({
                                     type: 'success',
                                     title: 'Login Successful!',
-                                    text: 'You will be redirected in 3 Seconds',
-                                    timer: 3000,
-                                    showCancelButton: false,
-                                    showConfirmButton: false
-                                })
-                                .then(function() {
-                                    window.location.href =
-                                        "<?php echo base_url('Dashboard') ?>";
+                                    text: 'You will be redirected to dashboard'
                                 });
+								window.location.href =
+                                        "<?php echo base_url('Dashboard') ?>";
                         } else {
                             $(".loading2").hide();
                             $(".loading2").modal('hide');
