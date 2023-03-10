@@ -7,48 +7,38 @@
             <div class="card">
                 <div class="card-body">
                     <form id="form-update" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $chef->id ?>">
+                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $item->id ?>">
+						<div class="form-group">
+                            <label for="code">Code</label>
+                            <input type="text" class="form-control" name="code" id="code" value="<?= $item->code ?>" autocomplete="off" readonly
+                                placeholder="Enter Name">
+                        </div>
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" id="name" autocomplete="off"
-                                value="<?= $chef->name ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" autocomplete="off"
-                                value="<?= $chef->email ?>">
+                                placeholder="Enter Item Name" value="<?= $item->name ?>">
                         </div>
                         <div class=" form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone" autocomplete="off"
-                                value="<?= $chef->phone ?>">
+                            <label for="price">Price</label>
+                            <input type="text" class="form-control" name="price" id="price" autocomplete="off"
+                                placeholder="Enter Item Price" value="<?= $item->price ?>">
                         </div>
                         <div class=" form-group">
-                            <?php
-                            if ($chef->gender==0){
-                                $female="checked";
-                                $male="";
-                            }elseif ($chef->gender==1) {
-                                $male="checked";
-                                $female="";
-                            }
-                            ?>
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" <?= $male; ?> name="gender"
-                                        value="1">Male
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" <?= $female; ?>
-                                        value="0">Female
-                                </label>
-                            </div>
+                            <label for="stock">Stock</label>
+                            <input type="text" class="form-control" name="stock" id="stock" autocomplete="off"
+                                placeholder="Enter Item Stock" value="<?= $item->stock ?>">
                         </div>
-                        <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
+                        <div class=" form-group">
+                            <label for="unit">Unit</label>
+                            <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
+                                placeholder="Enter Unit Item" value="<?= $item->unit ?>">
+                        </div>
+                        <div class=" form-group">
+                            <label for="warehouse_id">Warehouse</label>
+                            <input type="text" class="form-control" name="warehouse_id" id="warehouse_id" autocomplete="off"
+                                placeholder="Enter warehouse" value="<?= $item->warehouse_id ?>">
+                        </div>
+						<button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
                             Save</button>
 
@@ -67,17 +57,14 @@
 <script type="text/javascript">
 $('#form-update').submit(function(e) {
     var data = $(this).serialize();
-    // var data = new FormData($(this)[0]);
     $.ajax({
-            // method: 'POST',
             beforeSend: function() {
                 $(".loading2").show();
                 $(".loading2").modal('show');
             },
-            url: '<?php echo base_url('Chef/prosesUpdate'); ?>',
+            url: '<?php echo base_url('Item/prosesUpdate'); ?>',
             type: "post",
             enctype: "multipart/form-data",
-            // data: data,
             data: new FormData(this),
             processData: false,
             contentType: false,
@@ -108,7 +95,7 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-        var link = '<?php echo base_url("chef.html") ?>';
+        var link = '<?php echo base_url("item") ?>';
         window.location.replace(link);
     });
 }

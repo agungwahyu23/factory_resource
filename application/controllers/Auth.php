@@ -27,11 +27,13 @@ class Auth extends CI_Controller {
 			foreach($cek as $user) {
 				$session_data = [
 				'username' => $user['username'],
+				'code_employee' => $user['code_employee'],
+				'name_of_employee' => $user['name_of_employee'],
 				'level' => $user['level'],
-				'id_user' => $user['id_user'],
+				'id' => $user['id'],
 			];
 				$this->session->set_userdata($session_data);
-				if ($user['level'] == 'admin') {
+				if ($user['level'] == '1' || $user['level'] == '2') {
 					$out['status'] = 'berhasil';
 				}else{
 					$out['status'] = 'gagal';

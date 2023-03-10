@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Chef extends CI_Controller {
+class Item extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model('M_chef');
+		$this->load->model('M_item');
 	}
 
 	public function loadkonten($page, $data) {
@@ -18,41 +18,36 @@ class Chef extends CI_Controller {
 
 	public function index()
 	{
-		$data['page'] 		= "Chef";
-		$data['content'] 	= "admin/v_chef/home";
+		$data['page'] 		= "Item";
+		$data['content'] 	= "admin/v_item/home";
 
 		$this->loadkonten('admin/app_base',$data);
 	}
 
 	public function ajax_list()
 	{
-		// $kelurahan = $this->session->userdata('idkel');
-		$list = $this->M_chef->getData();
+		$items = $this->M_item->getData();
 
 		$data = array();
 		$no = @$_POST['start'];
-		foreach ($list as $brand) {
+		foreach ($items as $item) {
 
 			$no++;
 			$row = array();
 			$row[] = $no;
-			$row[] = $brand->name;
-			$row[] = $brand->email;
-			$row[] = $brand->phone;
-			if ($brand->gender == '0') {
-				$gender = 'Female';
-			} else if ($brand->gender == '1') {
-				$gender = 'Male';
-			}
-			$row[] = $gender;
+			$row[] = $item->code;
+			$row[] = $item->name;
+			$row[] = $item->stock;
 
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
 			$action .= '<div class="dropdown-menu dropdown-menu-end">';
-			$action .= '<a class="dropdown-item" href="' . base_url('chef-update') . "/" . 
-			$brand->id . '"> Update</a>';
-			$action .= '<a class="dropdown-item delete-chef" href="#" data-id='."'".
-			$brand->id."'".'> Delete</a>';
+			$action .= '<a class="dropdown-item" href="' . base_url('item-detail') . "/" . 
+			$item->id . '"> Detail</a>';
+			$action .= '<a class="dropdown-item" href="' . base_url('item-update') . "/" . 
+			$item->id . '"> Update</a>';
+			$action .= '<a class="dropdown-item delete-item" href="#" data-id='."'".
+			$item->id."'".'> Delete</a>';
 			$action .= '    	</div>';
 			$action .= ' </div>';
 			$row[] = $action;
@@ -70,9 +65,13 @@ class Chef extends CI_Controller {
 
 	public function add()
 	{
-		// $kelurahan = $this->session->userdata('idkel');
-		$data['page'] 		= "Add Chef ";
-		$data['content'] 	= "admin/v_chef/add";
+		$data['page'] 		= "Add Item";
+		$data['content'] 	= "admin/v_item/add";
+
+		// generate code with format ITEM-random code
+		$random = mt_rand(1111,9999);
+		$data['code'] = 'ITEM-'.$random;
+
 
 		$this->loadkonten('admin/app_base',$data);
 	}
@@ -81,17 +80,16 @@ class Chef extends CI_Controller {
 	{
 			$id_user 	= $this->session->userdata('id_user');
 			$data = [
+				'code' 			=> $this->input->post('code'),
 				'name' 			=> $this->input->post('name'),
-				'email' 		=> $this->input->post('email'),
-				'phone' 		=> $this->input->post('phone'),
-				'gender' 		=> $this->input->post('gender'),
-				'created_date'	=> date('Y-m-d'),
-				'created_by'	=> $id_user,
-				'updated_date'	=> date('Y-m-d'),
-				'updated_by'	=> $id_user
+				'price' 		=> $this->input->post('price'),
+				'stock' 		=> $this->input->post('stock'),
+				'unit' 			=> $this->input->post('unit'),
+				'warehouse_id' 	=> $this->input->post('warehouse_id'),
+				
 			];
 			
-		$result = $this->M_chef->save_data($data);
+		$result = $this->M_item->save_data($data);
 
 		if ($result > 0) {
 			$out['status'] = 'berhasil';
@@ -102,32 +100,41 @@ class Chef extends CI_Controller {
 		echo json_encode($out);
 	}
 
+	public function detail($id)
+	{
+		$data['page'] = "Detail Item";
+		$data['item'] = $this->M_item->select_by_id($id);
+
+		$data['content'] 	= "admin/v_item/detail";
+
+		$this->loadkonten('admin/app_base',$data);
+	}
 
 	public function Update($id)
 	{
-		$data['page'] = "Update Chef";
-		$data['chef'] = $this->M_chef->select_by_id($id);
+		$data['page'] = "Update Item";
+		$data['item'] = $this->M_item->select_by_id($id);
 
-		$data['content'] 	= "admin/v_chef/update";
+		$data['content'] 	= "admin/v_item/update";
 
 		$this->loadkonten('admin/app_base',$data);
 	}
 
 	public function prosesUpdate()
 	{
-		$id_user 	= $this->session->userdata('id_user');
 			$where = [
 				'id' 		   => $this->input->post('id')
 			];
 			$data = [
+				'code' 			=> $this->input->post('code'),
 				'name' 			=> $this->input->post('name'),
-				'email' 		=> $this->input->post('email'),
-				'phone' 		=> $this->input->post('phone'),
-				'gender' 		=> $this->input->post('gender'),
-				'updated_date'	    => date('Y-m-d'),
-				'updated_by'		=> $id_user
+				'price' 		=> $this->input->post('price'),
+				'stock' 		=> $this->input->post('stock'),
+				'unit' 			=> $this->input->post('unit'),
+				'warehouse_id' 	=> $this->input->post('warehouse_id'),
+				
 			];
-			$result = $this->M_chef->update($data, $where);
+			$result = $this->M_item->update($data, $where);
 
 			if ($result > 0) {
 				$out['status'] = 'berhasil';
@@ -141,7 +148,7 @@ class Chef extends CI_Controller {
 	public function delete()
 	{
 		$id = $_POST['id'];
-		$result = $this->M_chef->hapus($id);
+		$result = $this->M_item->hapus($id);
 
 		if ($result > 0) {
 			$out['status'] = 'berhasil';

@@ -1,0 +1,10 @@
+1. clone project https://github.com/agungwahyu23/factory_resource.git
+- buka github desktop, klik file, pilih clone repository
+- pilih tab url 
+- masukkan repository url https://github.com/agungwahyu23/factory_resource.git
+- pastikan local path menuju ke folder htdocs
+
+2. buka phpmyadmin, buat database baru dengan nama aksara_monitoring, import database yang ada di folder db pada projek yang diclone tadi
+
+3. buka web di http://localhost/factory_resource/
+4. login dengan akun username: admin_produksi password: admin

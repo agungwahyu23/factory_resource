@@ -5,7 +5,7 @@ class M_user extends CI_Model
 {
 	public function cek_login($username, $password)
 	{
-		$sql = "SELECT a.id as id_user, a.* , b.*  FROM user a LEFT JOIN user_group b ON a.user_group=b.id WHERE a.username = '$username' AND  a.password = '$password'";
+		$sql = "SELECT * FROM tb_employee WHERE username = '$username' AND password = '$password'";
 		$query = $this->db->query($sql);
 		$user = $query->row();
 		if (!empty($user)) {
