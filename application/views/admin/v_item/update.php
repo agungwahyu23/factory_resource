@@ -40,11 +40,13 @@
                         </div>
 						<button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
-                            Save</button>
-
+                            Save</button>						
                         <a href="javascript:history.go(-1)" class="btn btn-danger" type="submit" name="submit"><i
                                 class="fas fa-chevron-left"></i> Back
                         </a>
+						<a class=" btn btn-secondary ml-2" href="<?php echo base_url('item-add-detail/'.$item->id); ?>" id="btnNext" name="next"><i
+                                class="fas fa-chevron-right"></i>
+                            Next</a>
                     </form>
                 </div>
             </div>

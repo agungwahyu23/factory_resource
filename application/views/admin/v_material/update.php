@@ -5,44 +5,32 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    Input data
-                </div>
                 <div class="card-body">
-                    <form id="form-add" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
+                    <form id="form-update" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $material->id ?>">
+						<div class="form-group">
                             <label for="code">Code</label>
-                            <input type="text" class="form-control" name="code" id="code" value="<?= $code ?>" autocomplete="off" readonly
+                            <input type="text" class="form-control" name="code" id="code" value="<?= $material->code ?>" autocomplete="off" readonly
                                 placeholder="Enter Name">
                         </div>
                         <div class="form-group">
-                            <label for="name">Name*</label>
+                            <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" id="name" autocomplete="off"
-                                placeholder="Enter Item Name" required>
+                                placeholder="Enter Item Name" value="<?= $material->name ?>">
+                        </div>
+						<div class=" form-group">
+                            <label for="unit">Unit</label>
+                            <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
+                                placeholder="Enter Unit Item" value="<?= $material->unit ?>">
                         </div>
                         <div class=" form-group">
                             <label for="price">Price</label>
                             <input type="text" class="form-control" name="price" id="price" autocomplete="off"
-                                placeholder="Enter Item Price">
+                                placeholder="Enter Item Price" value="<?= $material->price ?>">
                         </div>
-                        <div class=" form-group">
-                            <label for="stock">Stock</label>
-                            <input type="text" class="form-control" name="stock" id="stock" autocomplete="off"
-                                placeholder="Enter Item Stock">
-                        </div>
-                        <div class=" form-group">
-                            <label for="unit">Unit</label>
-                            <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
-                                placeholder="Enter Unit Item">
-                        </div>
-                        <div class=" form-group">
-                            <label for="warehouse_id">Warehouse</label>
-                            <input type="text" class="form-control" name="warehouse_id" id="warehouse_id" autocomplete="off"
-                                placeholder="Enter warehouse">
-                        </div>
-                        <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
+						<button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
-                            Next</button>
+                            Save</button>
 
                         <a href="javascript:history.go(-1)" class="btn btn-danger" type="submit" name="submit"><i
                                 class="fas fa-chevron-left"></i> Back
@@ -57,14 +45,14 @@
 <!-- /.container-fluid -->
 
 <script type="text/javascript">
-$('#form-add').submit(function(e) {
+$('#form-update').submit(function(e) {
     var data = $(this).serialize();
     $.ajax({
             beforeSend: function() {
                 $(".loading2").show();
                 $(".loading2").modal('show');
             },
-            url: '<?php echo base_url('Item/prosesAdd'); ?>',
+            url: '<?php echo base_url('Material/prosesUpdate'); ?>',
             type: "post",
             enctype: "multipart/form-data",
             data: new FormData(this),
@@ -74,19 +62,10 @@ $('#form-add').submit(function(e) {
         })
         .done(function(data) {
             var result = jQuery.parseJSON(data);
-            console.log(result);
+            console.log(data);
             if (result.status == 'berhasil') {
-                document.getElementById("form-add").reset();
-                Swal.fire({
-					title: "Data saved successfully!",
-					text: "Click the Ok button to continue!",
-					icon: "success",
-					button: "Ok",
-				}).then(function() {
-					var link = '<?php echo base_url("item-add-detail/") ?>';
-					var redirect = link+''+result.id;
-					window.location.replace(redirect);
-				});
+                document.getElementById("form-update").reset();
+                save_berhasil();
             } else {
                 $(".loading2").hide();
                 $(".loading2").modal('hide');
@@ -106,10 +85,8 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-		log
-        var link = '<?php echo base_url("item-add-detail/") ?>';
-		var redirect = link+''+result.id;
-        window.location.replace(redirect);
+        var link = '<?php echo base_url("material") ?>';
+        window.location.replace(link);
     });
 }
 

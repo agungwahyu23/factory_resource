@@ -25,6 +25,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('material') ?>">
+            <i class="fas fa-fw fa-box"></i>
+            <span>TTB Management</span>
+        </a>
+    </li>
+    <li class="nav-item">
 	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-business-time"></i>

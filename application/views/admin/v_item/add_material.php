@@ -1,78 +1,50 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-    <!-- card untuk tambah data -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-					<div class="row">
-						<div class="col-md-6"></div>
-						<div class="col-md-6 text-right">
-							<a href="javascript:history.go(-1)" class="btn btn-danger justify-content-end" type="submit" name="submit"><i
-											class="fas fa-chevron-left"></i> Back
-									</a>
-						</div>
-					</div>
-                    <form id="form-detail" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $item->id ?>">
+<!-- DataTales Example -->
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        </div>
+        <div class="card-body">
+			<div class="row mb-5">
+				<div class="col-md-6">
+					<form id="form-add" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="item_id" value="<?= $id ?>" id="">
 						<div class="form-group">
-                            <label for="code">Code</label>
-                            <input type="text" class="form-control" name="code" id="code" value="<?= $item->code ?>" autocomplete="off" readonly
-                                placeholder="Enter Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" autocomplete="off"
-                                placeholder="Enter Item Name" value="<?= $item->name ?>" readonly>
-                        </div>
-                        <div class=" form-group">
-                            <label for="price">Price</label>
-                            <input type="text" class="form-control" name="price" id="price" autocomplete="off"
-                                placeholder="Enter Item Price" value="<?= $item->price ?>" readonly>
-                        </div>
-                        <div class=" form-group">
-                            <label for="stock">Stock</label>
-                            <input type="text" class="form-control" name="stock" id="stock" autocomplete="off"
-                                placeholder="Enter Item Stock" value="<?= $item->stock ?>" readonly>
-                        </div>
-                        <div class=" form-group">
-                            <label for="unit">Unit</label>
-                            <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
-                                placeholder="Enter Unit Item" value="<?= $item->unit ?>" readonly>
-                        </div>
-                        <div class=" form-group">
-                            <label for="warehouse_id">Warehouse</label>
-                            <input type="text" class="form-control" name="warehouse_id" id="warehouse_id" autocomplete="off"
-                                placeholder="Enter warehouse" value="<?= $item->warehouse_id ?>" readonly>
-                        </div>
-                    </form>
-					<div class="row mt-4">
-						<div class="col-md-12">
-						<h4>Detail Material For Item <?= $item->name ?></h4>
-						<hr>
-						<div class="table-responsive">
-							<table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>Code</th>
-										<th>Name</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
+							<label for="name">Choose Material*</label>
+							<select name="raw_material_id" id="raw_material_id" class="form-control">
+								<option value="">Choose material</option>
+								<?php foreach ($materials as $material) { ?>
+									<option value="<?= $material->id ?>"><?= $material->name ?></option>
+								<?php } ?>
+							</select>
 						</div>
-						</div>
-					</div>
-                </div>
+						<button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i class="fas fa-save"></i>
+							Save</button>
+			
+						<a href="<?= site_url('item') ?>" class="btn btn-success" type="submit" name="submit"><i
+								class="fas fa-check"></i> Done
+						</a>
+					</form>
+				</div>
+			</div>
+			<h4>Detail Material For Item <?= $item->name ?></h4>
+			<hr>
+            <div class="table-responsive">
+                <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <!-- akhir card -->
 </div>
-<!-- /.container-fluid -->
 
 <script type="text/javascript">
 //untuk load data table ajax	

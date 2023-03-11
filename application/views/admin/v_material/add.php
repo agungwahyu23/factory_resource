@@ -16,33 +16,23 @@
                                 placeholder="Enter Name">
                         </div>
                         <div class="form-group">
-                            <label for="name">Name*</label>
+                            <label for="name">Name of material*</label>
                             <input type="text" class="form-control" name="name" id="name" autocomplete="off"
-                                placeholder="Enter Item Name" required>
-                        </div>
-                        <div class=" form-group">
-                            <label for="price">Price</label>
-                            <input type="text" class="form-control" name="price" id="price" autocomplete="off"
-                                placeholder="Enter Item Price">
-                        </div>
-                        <div class=" form-group">
-                            <label for="stock">Stock</label>
-                            <input type="text" class="form-control" name="stock" id="stock" autocomplete="off"
-                                placeholder="Enter Item Stock">
+                                placeholder="Enter Material Name. Ex: Gandum" required>
                         </div>
                         <div class=" form-group">
                             <label for="unit">Unit</label>
                             <input type="text" class="form-control" name="unit" id="unit" autocomplete="off"
-                                placeholder="Enter Unit Item">
+                                placeholder="Enter Unit. Ex: Kg">
                         </div>
                         <div class=" form-group">
-                            <label for="warehouse_id">Warehouse</label>
-                            <input type="text" class="form-control" name="warehouse_id" id="warehouse_id" autocomplete="off"
-                                placeholder="Enter warehouse">
+                            <label for="price">Price</label>
+                            <input type="text" class="form-control" name="price" id="price" autocomplete="off"
+                                placeholder="Enter Price. Ex: 500000">
                         </div>
                         <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
-                            Next</button>
+                            Save</button>
 
                         <a href="javascript:history.go(-1)" class="btn btn-danger" type="submit" name="submit"><i
                                 class="fas fa-chevron-left"></i> Back
@@ -64,7 +54,7 @@ $('#form-add').submit(function(e) {
                 $(".loading2").show();
                 $(".loading2").modal('show');
             },
-            url: '<?php echo base_url('Item/prosesAdd'); ?>',
+            url: '<?php echo base_url('Material/prosesAdd'); ?>',
             type: "post",
             enctype: "multipart/form-data",
             data: new FormData(this),
@@ -74,19 +64,10 @@ $('#form-add').submit(function(e) {
         })
         .done(function(data) {
             var result = jQuery.parseJSON(data);
-            console.log(result);
+            console.log(data);
             if (result.status == 'berhasil') {
                 document.getElementById("form-add").reset();
-                Swal.fire({
-					title: "Data saved successfully!",
-					text: "Click the Ok button to continue!",
-					icon: "success",
-					button: "Ok",
-				}).then(function() {
-					var link = '<?php echo base_url("item-add-detail/") ?>';
-					var redirect = link+''+result.id;
-					window.location.replace(redirect);
-				});
+                save_berhasil();
             } else {
                 $(".loading2").hide();
                 $(".loading2").modal('hide');
@@ -106,10 +87,8 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-		log
-        var link = '<?php echo base_url("item-add-detail/") ?>';
-		var redirect = link+''+result.id;
-        window.location.replace(redirect);
+        var link = '<?php echo base_url("material") ?>';
+        window.location.replace(link);
     });
 }
 

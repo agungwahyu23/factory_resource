@@ -62,8 +62,16 @@ $route['log-sign'] =   'Auth/index';
 /* item manajemen */
 $route['item'] =   'Item/index';
 $route['item-add'] =   'Item/add';
+$route['item-add-detail/(:any)'] =   'Item/index_material/$1';
+$route['list-item-material/(:any)'] = 'Item/list_material_item/$1';
 $route['item-update/(:any)'] =   'Item/update/$1';
 $route['item-detail/(:any)'] =   'Item/detail/$1';
+
+/* material manajemen */
+$route['material'] =   'Material/index';
+$route['material-add'] =   'Material/add';
+$route['material-update/(:any)'] =   'Material/update/$1';
+$route['material-detail/(:any)'] =   'Material/detail/$1';
 
 /* request */
 $route['request'] =   'Request/index';

@@ -24,6 +24,17 @@ class Item extends CI_Controller {
 		$this->loadkonten('admin/app_base',$data);
 	}
 
+	public function index_material($id)
+	{
+		$data['page'] 		= "Material";
+		$data['content'] 	= "admin/v_item/add_material";
+		$data['id'] = $id;
+		$data['item'] = $this->M_item->select_by_id($id);
+		$data['materials'] = $this->M_item->getMaterial();
+
+		$this->loadkonten('admin/app_base',$data);
+	}
+
 	public function ajax_list()
 	{
 		$items = $this->M_item->getData();
@@ -63,6 +74,33 @@ class Item extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	public function list_material_item($id)
+	{
+		$item_materials = $this->M_item->getItemMaterial($id);
+
+		$data = array();
+		$no = @$_POST['start'];
+		foreach ($item_materials as $material_item) {
+
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $material_item->code;
+			$row[] = $material_item->name;
+
+			$row[] = '<button class="btn btn-datatable btn-icon btn-transparent-dark hapus-detail" data-id='."'".$material_item->id."'".'><span class="fa fa-trash"></span></button>';
+			
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => @$_POST['draw'],
+			"data" => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
 	public function add()
 	{
 		$data['page'] 		= "Add Item";
@@ -90,9 +128,28 @@ class Item extends CI_Controller {
 			];
 			
 		$result = $this->M_item->save_data($data);
+		$id = $this->db->insert_id();
 
 		if ($result > 0) {
-			$out['status'] = 'berhasil';
+			$out = array('status'=>'berhasil', 'id'=>$id);
+		} else {
+			$out['status'] = 'gagal';
+		}
+
+		echo json_encode($out);
+	}
+
+	public function prosesAddMaterial()
+	{
+			$data = [
+				'item_id' 			=> $this->input->post('item_id'),
+				'raw_material_id' 	=> $this->input->post('raw_material_id'),				
+			];
+			
+		$result = $this->M_item->save_data_material($data);
+
+		if ($result > 0) {
+			$out = array('status'=>'berhasil');
 		} else {
 			$out['status'] = 'gagal';
 		}
@@ -104,6 +161,7 @@ class Item extends CI_Controller {
 	{
 		$data['page'] = "Detail Item";
 		$data['item'] = $this->M_item->select_by_id($id);
+		$data['id'] = $id;
 
 		$data['content'] 	= "admin/v_item/detail";
 
@@ -149,6 +207,19 @@ class Item extends CI_Controller {
 	{
 		$id = $_POST['id'];
 		$result = $this->M_item->hapus($id);
+
+		if ($result > 0) {
+			$out['status'] = 'berhasil';
+		} else {
+			$out['status'] = 'gagal';
+		}
+	}
+
+	public function delete_detail()
+	{
+		$id = $_POST['id'];
+
+		$result = $this->M_item->hapus_detail($id);
 
 		if ($result > 0) {
 			$out['status'] = 'berhasil';
