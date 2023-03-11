@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Request extends CI_Controller {
+class Returns extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
+		check_not_login();
 		$this->load->library('session');
 		$this->load->model('M_return');
 	}
@@ -18,36 +19,36 @@ class Request extends CI_Controller {
 
 	public function index()
 	{
-		$data['page'] 		= "Request";
-		$data['content'] 	= "admin/v_request/home";
+		$data['page'] 		= "Return";
+		$data['content'] 	= "admin/v_return/home";
 
 		$this->loadkonten('admin/app_base',$data);
 	}
 
 	public function ajax_list()
 	{
-		$requests = $this->M_return->getData();
+		$returns = $this->M_return->getData();
 
 		$data = array();
 		$no = @$_POST['start'];
-		foreach ($requests as $request) {
+		foreach ($returns as $return) {
 
 			$no++;
 			$row = array();
 			$row[] = $no;
-			$row[] = $request->code;
-			$row[] = $request->name;
-			$row[] = $request->stock;
+			$row[] = $return->code;
+			$row[] = $return->name;
+			$row[] = $return->stock;
 
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
 			$action .= '<div class="dropdown-menu dropdown-menu-end">';
-			$action .= '<a class="dropdown-request" href="' . base_url('request-detail') . "/" . 
-			$request->id . '"> Detail</a>';
-			$action .= '<a class="dropdown-request" href="' . base_url('request-update') . "/" . 
-			$request->id . '"> Update</a>';
-			$action .= '<a class="dropdown-request delete-request" href="#" data-id='."'".
-			$request->id."'".'> Delete</a>';
+			$action .= '<a class="dropdown-return" href="' . base_url('return-detail') . "/" . 
+			$return->id . '"> Detail</a>';
+			$action .= '<a class="dropdown-return" href="' . base_url('return-update') . "/" . 
+			$return->id . '"> Update</a>';
+			$action .= '<a class="dropdown-return delete-return" href="#" data-id='."'".
+			$return->id."'".'> Delete</a>';
 			$action .= '    	</div>';
 			$action .= ' </div>';
 			$row[] = $action;
@@ -65,8 +66,8 @@ class Request extends CI_Controller {
 
 	public function add()
 	{
-		$data['page'] 		= "Add Request";
-		$data['content'] 	= "admin/v_request/add";
+		$data['page'] 		= "Add Return";
+		$data['content'] 	= "admin/v_return/add";
 
 		// generate code with format REQ-random code
 		$random = mt_rand(1111,9999);
@@ -103,20 +104,20 @@ class Request extends CI_Controller {
 
 	public function detail($id)
 	{
-		$data['page'] = "Detail Request";
-		$data['request'] = $this->M_return->select_by_id($id);
+		$data['page'] = "Detail Return";
+		$data['return'] = $this->M_return->select_by_id($id);
 
-		$data['content'] 	= "admin/v_request/detail";
+		$data['content'] 	= "admin/v_return/detail";
 
 		$this->loadkonten('admin/app_base',$data);
 	}
 
 	public function Update($id)
 	{
-		$data['page'] = "Update Request";
-		$data['request'] = $this->M_return->select_by_id($id);
+		$data['page'] = "Update Return";
+		$data['return'] = $this->M_return->select_by_id($id);
 
-		$data['content'] 	= "admin/v_request/update";
+		$data['content'] 	= "admin/v_return/update";
 
 		$this->loadkonten('admin/app_base',$data);
 	}

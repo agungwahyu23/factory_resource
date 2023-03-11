@@ -80,10 +80,10 @@ $route['request-update/(:any)'] =   'Request/update/$1';
 $route['request-detail/(:any)'] =   'Request/detail/$1';
 
 /* return */
-$route['return'] =   'Return/index';
-$route['return-add'] =   'Return/add';
-$route['return-update/(:any)'] =   'Return/update/$1';
-$route['return-detail/(:any)'] =   'Return/detail/$1';
+$route['return'] =   'Returns/index';
+$route['return-add'] =   'Returns/add';
+$route['return-update/(:any)'] =   'Returns/update/$1';
+$route['return-detail/(:any)'] =   'Returns/detail/$1';
 
 /* User */
 $route['user'] =   'User/index';
