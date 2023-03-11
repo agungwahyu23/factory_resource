@@ -71,6 +71,12 @@ $route['request-add'] =   'Request/add';
 $route['request-update/(:any)'] =   'Request/update/$1';
 $route['request-detail/(:any)'] =   'Request/detail/$1';
 
+/* return */
+$route['return'] =   'Return/index';
+$route['return-add'] =   'Return/add';
+$route['return-update/(:any)'] =   'Return/update/$1';
+$route['return-detail/(:any)'] =   'Return/detail/$1';
+
 /* User */
 $route['user'] =   'User/index';
 $route['user-add'] =   'User/add';
