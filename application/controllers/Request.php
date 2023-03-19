@@ -37,8 +37,7 @@ class Request extends CI_Controller {
 			$row = array();
 			$row[] = $no;
 			$row[] = $request->code;
-			$row[] = $request->name;
-			$row[] = $request->stock;
+			$row[] = $request->date_order;
 
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
@@ -51,7 +50,79 @@ class Request extends CI_Controller {
 			$request->id."'".'> Delete</a>';
 			$action .= '    	</div>';
 			$action .= ' </div>';
+			// $row[] = $action;
+
+			$status = $request->status;
+			if ($status == 1) {
+				$status_desc = '<span class="badge badge-pill badge-primary">Requested</span>';
+			}elseif ($status==2) {
+				$status_desc = '<span class="badge badge-pill badge-success">Accepted</span>';
+			}elseif ($status == 3) {
+				$status_desc = '<span class="badge badge-pill badge-danger">Rejected</span>';
+			}
+			$row[] = $status_desc;
+			
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => @$_POST['draw'],
+			"data" => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	public function ajax_list_modal()
+	{
+		$requests = $this->M_request->getDataMaterial();
+
+		$data = array();
+		$no = @$_POST['start'];
+		foreach ($requests as $request) {
+
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $request->code;
+			$row[] = $request->name;
+			$row[] = $request->price;
+
+			$action = '<a class="btn btn-sm btn-primary choose_material" href="#" 
+			data-id='."'". $request->id."'".' 
+			data-name='."'". $request->name."'".'
+			data-price='."'". $request->price."'".'> Pilih</a>';
+
 			$row[] = $action;
+			
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => @$_POST['draw'],
+			"data" => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	public function ajax_list_order_detail()
+	{
+		$id = $_POST['order_id'];
+
+		$requests = $this->M_request->getDataDetailOrder($id);
+
+		$data = array();
+		$no = @$_POST['start'];
+		foreach ($requests as $request) {
+
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $request->name;
+			$row[] = $request->qty_requested;
+
+			$row[] = '<button class="btn btn-datatable btn-icon btn-transparent-dark hapus-detail" data-id='."'".$request->id."'".'><span class="fa fa-trash"></span></button>';
 			
 			$data[] = $row;
 		}
@@ -80,21 +151,30 @@ class Request extends CI_Controller {
 
 	public function prosesAdd()
 	{
-			$id_user 	= $this->session->userdata('id_user');
-			$data = [
-				'code' 			=> $this->input->post('code'),
-				'name' 			=> $this->input->post('name'),
-				'price' 		=> $this->input->post('price'),
-				'stock' 		=> $this->input->post('stock'),
-				'unit' 			=> $this->input->post('unit'),
-				'warehouse_id' 	=> $this->input->post('warehouse_id'),
-				
-			];
+		$data = [
+			'emp_id' 			=> $this->input->post('code'),
+			'code' 			=> $this->input->post('code'),
+			'date_order' 		=> $this->input->post('date_order'),
+			'status' 		=> 1,
+		];
 			
 		$result = $this->M_request->save_data($data);
+		$id = $this->db->insert_id();
+
+		$detail_material = [];
+		$material_id = $this->input->post('material_id');
+		foreach ($material_id as $key => $product) {
+			$detail_material[] = [
+				'order_id'			=> $id,
+				'material_id'		=> $this->input->post('material_id['.$key.']'),
+				'qty_requested'		=> $this->input->post('qty_requested['.$key.']'),
+				'saved_price'		=> $this->input->post('material_price['.$key.']')
+			];
+		}
+		$result = $this->M_request->save_data_detail($detail_material);
 
 		if ($result > 0) {
-			$out['status'] = 'berhasil';
+			$out = array('status'=>'berhasil', 'id'=>1);
 		} else {
 			$out['status'] = 'gagal';
 		}

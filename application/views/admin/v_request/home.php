@@ -13,9 +13,11 @@
                             <th>No</th>
                             <th>Code</th>
                             <th>Date Request</th>
-                            <th>Company</th>
                             <th>Status</th>
+							<?php  
+							if ($this->session->userdata('level') == 2) { ?>
                             <th>Action</th>
+							<?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,11 +48,11 @@ $(document).ready(function() {
         },
 
         // Load data for the table's content from an Ajax source
-        // "ajax": {
-        //     "url": "<?php echo site_url('Request/ajax_list') ?>",
-        //     "type": "POST"
+        "ajax": {
+            "url": "<?php echo site_url('Request/ajax_list') ?>",
+            "type": "POST"
 
-        // },
+        },
 
         //Set column definition initialisation properties.
         "columnDefs": [{

@@ -76,6 +76,7 @@ $route['material-detail/(:any)'] =   'Material/detail/$1';
 /* request */
 $route['request'] =   'Request/index';
 $route['request-add'] =   'Request/add';
+$route['request-add/(:any)'] =   'Request/add/$1';
 $route['request-update/(:any)'] =   'Request/update/$1';
 $route['request-detail/(:any)'] =   'Request/detail/$1';
 

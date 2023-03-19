@@ -6,14 +6,37 @@ class M_request extends CI_Model
 
 	public function getData()
 	{
-		$sql = "SELECT * FROM tb_item ORDER BY id ASC";
+		$sql = "SELECT * FROM tb_order ORDER BY id ASC";
+		$data = $this->db->query($sql);
+		return $data->result();
+	}
+
+	public function getDataMaterial()
+	{
+		$sql = "SELECT * FROM tb_raw_material ORDER BY id ASC";
+		$data = $this->db->query($sql);
+		return $data->result();
+	}
+
+	public function getDataDetailOrder($id)
+	{
+		$sql = "SELECT od.*, material.name 
+				FROM tb_order_detail as od
+				LEFT JOIN tb_raw_material as material ON material.id = od.material_id 
+				where od.order_id = '".$id."' ORDER BY id ASC";
 		$data = $this->db->query($sql);
 		return $data->result();
 	}
 
 	public function save_data($data)
 	{
-		$result = $this->db->insert('tb_item', $data);
+		$result = $this->db->insert('tb_order', $data);
+		return $result;
+	}
+
+	public function save_data_detail($data)
+	{
+		$result = $this->db->insert_batch('tb_order_detail', $data);
 		return $result;
 	}
 
