@@ -20,9 +20,10 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url(); ?>assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>assets/admin/css/select2-bootstrap-5-theme.min.css" rel="stylesheet">
 
-	<link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+	<!-- <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" /> -->
 
     <!-- CSS Sweet alert -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/vendor/sweetalert/sweetalert.css">

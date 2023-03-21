@@ -20,5 +20,6 @@
 <script src="<?= base_url() ?>assets/admin/js/demo/datatables-demo.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/admin/vendor/select2/select2.full.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script src="<?php echo base_url(); ?>assets/admin/js/sweealert.js"></script>
 <script src="<?php echo base_url(); ?>assets/admin/vendor/sweetalert/sweetalert.min.js"></script>
