@@ -80,6 +80,13 @@ $route['request-add/(:any)'] =   'Request/add/$1';
 $route['request-update/(:any)'] =   'Request/update/$1';
 $route['request-detail/(:any)'] =   'Request/detail/$1';
 
+/* roadmap */
+$route['roadmap'] =   'Roadmap/index';
+$route['roadmap-add'] =   'Roadmap/add';
+$route['roadmap-add/(:any)'] =   'Roadmap/add/$1';
+$route['roadmap-update/(:any)'] =   'Roadmap/update/$1';
+$route['roadmap-detail/(:any)'] =   'Roadmap/detail/$1';
+
 /* return */
 $route['return'] =   'Returns/index';
 $route['return-add'] =   'Returns/add';
