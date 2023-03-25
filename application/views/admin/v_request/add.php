@@ -10,7 +10,6 @@
                     Input data
                 </div>
                 <div class="card-body">
-						<input type="text" name="order_id" value="<?= $this->uri->segment(2) ?>" id="order_id">
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
@@ -36,15 +35,12 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="name">Type</label>
+									<label for="name">Note</label>
 									<input type="text" class="form-control" name="type" id="type" autocomplete="off"
-										placeholder="Enter Item Name">
+										placeholder="Enter Notes">
 								</div>
 							</div>
 						</div>
-						<button class=" btn btn-primary mr-2" type="submit" id="btnSubmitOrder" name="submit"><i
-                                class="fas fa-arrow-right"></i>
-                            Next</button>
                         
                 </div>
             </div>
@@ -102,7 +98,6 @@
 			</div>
 			<div class="modal-body">
 				<div class="datatable table-responsive">
-				<input type="hidden" name="order_id_modal" id="order_id_modal" value="<?= $this->uri->segment(2) ?>">
 					<table id="modal_item" class="table table-striped table-bordered dt-responsive nowrap"
 						cellspacing="0" style="width:100%">
 						<thead>
@@ -190,17 +185,6 @@
     }
 
 	$(document).ready(function() {
-
-
-		// check if order id null
-		var order_id = $('#order_id').val();
-		console.log(order_id);
-		if (order_id != '') {
-			$('#btnSubmitOrder').hide();
-		}else{
-			$('#btnSubmitOrder').show();
-		}
-
 		// define datatable for modal
 		table_modal = $('#modal_item').DataTable({
 				"processing": true, //Feature control the processing indicator.

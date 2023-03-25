@@ -42,9 +42,16 @@ class M_request extends CI_Model
 
 	public function select_by_id($id)
 	{
-		$sql = "SELECT * FROM tb_item where id = ?";
+		$sql = "SELECT * FROM tb_order where id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->row();
+	}
+	
+	public function order_detail($id)
+	{
+		$sql = "SELECT * FROM tb_order_detail where order_id = ?";
+		$data = $this->db->query($sql, array($id));
+		return $data->result();
 	}
 
 	public function update($data, $where)

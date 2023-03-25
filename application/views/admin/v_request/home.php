@@ -15,7 +15,7 @@
                             <th>Date Request</th>
                             <th>Status</th>
 							<?php  
-							if ($this->session->userdata('level') == 2) { ?>
+							if ($this->session->userdata('level') == 1) { ?>
                             <th>Action</th>
 							<?php } ?>
                         </tr>

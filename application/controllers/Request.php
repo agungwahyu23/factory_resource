@@ -39,19 +39,6 @@ class Request extends CI_Controller {
 			$row[] = $request->code;
 			$row[] = $request->date_order;
 
-			$action = '<div class="dropdown">';
-			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
-			$action .= '<div class="dropdown-menu dropdown-menu-end">';
-			$action .= '<a class="dropdown-request" href="' . base_url('request-detail') . "/" . 
-			$request->id . '"> Detail</a>';
-			$action .= '<a class="dropdown-request" href="' . base_url('request-update') . "/" . 
-			$request->id . '"> Update</a>';
-			$action .= '<a class="dropdown-request delete-request" href="#" data-id='."'".
-			$request->id."'".'> Delete</a>';
-			$action .= '    	</div>';
-			$action .= ' </div>';
-			// $row[] = $action;
-
 			$status = $request->status;
 			if ($status == 1) {
 				$status_desc = '<span class="badge badge-pill badge-primary">Requested</span>';
@@ -61,6 +48,22 @@ class Request extends CI_Controller {
 				$status_desc = '<span class="badge badge-pill badge-danger">Rejected</span>';
 			}
 			$row[] = $status_desc;
+
+			$action = '<div class="dropdown">';
+			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
+			$action .= '<div class="dropdown-menu dropdown-menu-end">';
+			$action .= '<a class="dropdown-item" href="' . base_url('request-update') . "/" . 
+			$request->id . '"> Update</a>';
+			$action .= '<a class="dropdown-item delete-request" href="#" data-id='."'".
+			$request->id."'".'> Delete</a>';
+			$action .= '    	</div>';
+			$action .= ' </div>';
+
+			if ($request->status==1) {
+				$row[] = $action;
+			}else{
+				$row[] = '-';
+			}
 			
 			$data[] = $row;
 		}
@@ -156,6 +159,7 @@ class Request extends CI_Controller {
 			'code' 			=> $this->input->post('code'),
 			'date_order' 		=> $this->input->post('date_order'),
 			'status' 		=> 1,
+			'type' 		=> $this->input->post('type'),
 		];
 			
 		$result = $this->M_request->save_data($data);
@@ -196,6 +200,9 @@ class Request extends CI_Controller {
 	{
 		$data['page'] = "Update Request";
 		$data['request'] = $this->M_request->select_by_id($id);
+		$data['detail'] = $this->M_request->order_detail($id);
+		// var_dump($data['detail']);
+		// die;
 
 		$data['content'] 	= "admin/v_request/update";
 
