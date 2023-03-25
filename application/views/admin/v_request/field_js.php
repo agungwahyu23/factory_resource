@@ -138,6 +138,46 @@ $('#form-add').submit(function(e) {
     e.preventDefault();
 });
 
+// process add data roadmap
+$('#form-acc').submit(function(e) {
+    var data = $(this).serialize();
+    $.ajax({
+            beforeSend: function() {
+                $(".loading2").show();
+                $(".loading2").modal('show');
+            },
+            url: '<?php echo base_url('Request/prosesSend'); ?>',
+            type: "post",
+            enctype: "multipart/form-data",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            cache: false,
+        })
+        .done(function(data) {
+            var result = jQuery.parseJSON(data);
+            console.log(data);
+            if (result.status == 'berhasil') {
+                document.getElementById("form-acc").reset();
+                Swal.fire({
+					title: "Data saved successfully!",
+					text: "Click the Ok button to continue!",
+					icon: "success",
+					button: "Ok",
+				}).then(function() {
+					var link = '<?php echo base_url("request/") ?>';
+					window.location.replace(link);
+				});
+            } else {
+                $(".loading2").hide();
+                $(".loading2").modal('hide');
+                gagal();
+
+            }
+        })
+    e.preventDefault();
+});
+
 // process edit data order
 $('#form-edit').submit(function(e) {
     var data = $(this).serialize();

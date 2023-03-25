@@ -40,6 +40,18 @@ class M_request extends CI_Model
 		return $result;
 	}
 
+	public function save_roadmap($data)
+	{
+		$result = $this->db->insert('tb_roadmap', $data);
+		return $result;
+	}
+
+	public function save_roadmap_detail($data)
+	{
+		$result = $this->db->insert_batch('tb_roadmap_detail', $data);
+		return $result;
+	}
+
 	public function select_by_id($id)
 	{
 		$sql = "SELECT * FROM tb_order where id = ?";

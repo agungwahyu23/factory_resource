@@ -78,6 +78,7 @@ $route['request'] =   'Request/index';
 $route['request-add'] =   'Request/add';
 $route['request-add/(:any)'] =   'Request/add/$1';
 $route['request-update/(:any)'] =   'Request/update/$1';
+$route['request-sent/(:any)'] =   'Request/sent/$1';
 $route['request-detail/(:any)'] =   'Request/detail/$1';
 
 /* roadmap */

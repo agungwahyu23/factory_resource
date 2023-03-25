@@ -97,9 +97,48 @@ $(document).on("click", ".delete-request", function() {
     })
 });
 
+// reject action
+$(document).on("click", "#reject-request", function() {
+    var id = $(this).attr("data-id");
+    Swal.fire({
+        title: 'Reject request?',
+        text: "Sure you will reject this request?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Reject'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('Request/reject'); ?>",
+                data: "id=" + id,
+                success: function(data) {
+                    $("tr[data-id='" + id + "']").fadeOut("fast",
+                        function() {
+                            $(this).remove();
+                        });
+					rejected();
+                    reload_table();
+                }
+            });
+        }
+    })
+});
+
 function hapus_berhasil() {
     Swal.fire({
         title: "Deleted data successfully!",
+        text: "Click the Ok button to continue!",
+        icon: "success",
+        button: "Ok",
+    })
+}
+
+function rejected() {
+    Swal.fire({
+        title: "Rejected request successfully!",
         text: "Click the Ok button to continue!",
         icon: "success",
         button: "Ok",

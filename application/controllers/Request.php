@@ -56,6 +56,12 @@ class Request extends CI_Controller {
 			$request->id . '"> Update</a>';
 			$action .= '<a class="dropdown-item delete-request" href="#" data-id='."'".
 			$request->id."'".'> Delete</a>';
+
+			$action .= '<a class="dropdown-item" id="reject-request" href="#" data-id='."'".
+			$request->id."'".'> Reject</a>';
+			$action .= '<a class="dropdown-item" href="' . base_url('request-sent') . "/" . 
+			$request->id . '"> Accept</a>';
+			
 			$action .= '    	</div>';
 			$action .= ' </div>';
 
@@ -243,6 +249,76 @@ class Request extends CI_Controller {
 			}
 
 		echo json_encode($out);
+	}
+
+	public function sent($id)
+	{
+		$data['page'] = "Accept Request";
+		$data['request'] = $this->M_request->select_by_id($id);
+		$data['detail'] = $this->M_request->order_detail($id);
+
+		// generate code with format REQ-random code
+		$random = mt_rand(1111,9999);
+		$data['code'] = 'RMP-'.$random;
+		$data['user'] = $this->session->userdata();
+
+		$data['content'] 	= "admin/v_request/acc";
+
+		$this->loadkonten('admin/app_base',$data);
+	}
+
+	public function prosesSend()
+	{
+		$id_order = $this->input->post('id');
+
+		$this->db->set('status', '2');
+		$this->db->where('id', $id_order);
+		$this->db->update('tb_order');
+
+		$data = [
+			'emp_id' 		=> $this->input->post('emp_id'),
+			'order_id' 			=> $this->input->post('id'),
+			'code' 	=> $this->input->post('code'),
+			'date_send' 	=> $this->input->post('date_send'),
+			'status' 		=> $this->input->post('status'),
+		];
+			
+		$result = $this->M_request->save_roadmap($data);
+		$id = $this->db->insert_id();
+
+		$detail_roadmap = [];
+		$material_id = $this->input->post('material_id');
+		foreach ($material_id as $key => $product) {
+			$detail_roadmap[] = [
+				'roadmap_id'			=> $id,
+				'material_id'		=> $this->input->post('material_id['.$key.']'),
+				'qty_sent'		=> $this->input->post('qty_sent['.$key.']')
+			];
+		}
+		$result = $this->M_request->save_roadmap_detail($detail_roadmap);
+
+		if ($result > 0) {
+			$out = array('status'=>'berhasil', 'id'=>1);
+		} else {
+			$out['status'] = 'gagal';
+		}
+
+		echo json_encode($out);
+	}
+
+	public function reject()
+	{
+		$id = $_POST['id'];
+
+		$this->db->set('status', '3');
+		$this->db->where('id', $id);
+		$result = $this->db->update('tb_order');
+
+		if ($result > 0) {
+			$out['status'] = 'berhasil';
+		} else {
+			$out['status'] = 'gagal';
+		}
 	}
 
 	public function delete()
