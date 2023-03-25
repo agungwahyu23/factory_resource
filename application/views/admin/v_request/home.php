@@ -68,7 +68,7 @@ function reload_table() {
     table.ajax.reload(null, false); //reload datatable ajax 
 }
 
-$(document).on("click", ".delete-item", function() {
+$(document).on("click", ".delete-request", function() {
     var id = $(this).attr("data-id");
     Swal.fire({
         title: 'Delete data?',

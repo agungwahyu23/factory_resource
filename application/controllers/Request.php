@@ -201,8 +201,6 @@ class Request extends CI_Controller {
 		$data['page'] = "Update Request";
 		$data['request'] = $this->M_request->select_by_id($id);
 		$data['detail'] = $this->M_request->order_detail($id);
-		// var_dump($data['detail']);
-		// die;
 
 		$data['content'] 	= "admin/v_request/update";
 
@@ -215,15 +213,28 @@ class Request extends CI_Controller {
 				'id' 		   => $this->input->post('id')
 			];
 			$data = [
+				'emp_id' 			=> $this->input->post('code'),
 				'code' 			=> $this->input->post('code'),
-				'name' 			=> $this->input->post('name'),
-				'price' 		=> $this->input->post('price'),
-				'stock' 		=> $this->input->post('stock'),
-				'unit' 			=> $this->input->post('unit'),
-				'warehouse_id' 	=> $this->input->post('warehouse_id'),
-				
+				'date_order' 		=> $this->input->post('date_order'),
+				'status' 		=> 1,
+				'type' 		=> $this->input->post('type'),
 			];
 			$result = $this->M_request->update($data, $where);
+
+			$this->db->where('order_id', $where);
+			$this->db->delete('tb_order_detail');
+
+			$detail_material = [];
+			$material_id = $this->input->post('material_id');
+			foreach ($material_id as $key => $product) {
+				$detail_material[] = [
+					'order_id'			=> $this->input->post('id'),
+					'material_id'		=> $this->input->post('material_id['.$key.']'),
+					'qty_requested'		=> $this->input->post('qty_requested['.$key.']'),
+					'saved_price'		=> $this->input->post('material_price['.$key.']')
+				];
+			}
+			$result = $this->M_request->save_data_detail($detail_material);
 
 			if ($result > 0) {
 				$out['status'] = 'berhasil';

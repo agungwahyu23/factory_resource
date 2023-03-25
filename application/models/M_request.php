@@ -49,20 +49,26 @@ class M_request extends CI_Model
 	
 	public function order_detail($id)
 	{
-		$sql = "SELECT * FROM tb_order_detail where order_id = ?";
+		$sql = "SELECT od.id, od.order_id, od.material_id, od.qty_requested, od.saved_price, m.name 
+		FROM tb_order_detail as od
+		LEFT JOIN tb_raw_material as m ON od.material_id=m.id
+		where od.order_id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->result();
 	}
 
 	public function update($data, $where)
 	{
-		$result = $this->db->update('tb_item', $data, $where);
+		$result = $this->db->update('tb_order', $data, $where);
 		return $result;
 	}
 
 	public function hapus($id)
 	{
-		$sql = "DELETE FROM tb_item WHERE id='" . $id . "'";
+		$this->db->where('order_id', $id);
+		$this->db->delete('tb_order_detail');
+
+		$sql = "DELETE FROM tb_order WHERE id='" . $id . "'";
 
 		$this->db->query($sql);
 
