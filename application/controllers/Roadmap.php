@@ -9,6 +9,7 @@ class Roadmap extends CI_Controller {
 		check_not_login();
 		$this->load->library('session');
 		$this->load->model('M_roadmap');
+		$this->load->model('M_request');
 	}
 
 	public function loadkonten($page, $data) {
@@ -42,11 +43,11 @@ class Roadmap extends CI_Controller {
 
 			$status = $roadmap->status;
 			if ($status == 1) {
-				$status_desc = '<span class="badge badge-pill badge-primary">Processing</span>';
+				$status_desc = '<span class="badge badge-pill badge-warning">Processing</span>';
 			}elseif ($status==2) {
-				$status_desc = '<span class="badge badge-pill badge-success">Sending</span>';
+				$status_desc = '<span class="badge badge-pill badge-primary">Sending</span>';
 			}elseif ($status == 3) {
-				$status_desc = '<span class="badge badge-pill badge-danger">Received</span>';
+				$status_desc = '<span class="badge badge-pill badge-success">Received</span>';
 			}
 			$row[] = $status_desc;
 
@@ -175,10 +176,50 @@ class Roadmap extends CI_Controller {
 	{
 		$data['page'] = "Acc Roadmap";
 		$data['roadmap'] = $this->M_roadmap->select_by_id($id);
+		$data['detail'] = $this->M_roadmap->roadmap_detail($id);;
 
-		$data['content'] 	= "admin/v_roadmap/detail";
+		$data['content'] 	= "admin/v_roadmap/acc";
 
 		$this->loadkonten('admin/app_base',$data);
+	}
+	
+	public function prosesAcc()
+	{
+			$id = $this->input->post('id');
+			$order_id = $this->input->post('order_id');
+
+			$where = [
+				'id' 		   => $this->input->post('id')
+			];
+			$data = [
+				'status' 		=> 3,
+			];
+			$result = $this->M_roadmap->update($data, $where);
+
+			$this->db->where('order_id', $order_id);
+			$this->db->delete('tb_order_detail');
+
+			$detail_material = [];
+			$material_id = $this->input->post('material_id');
+
+			foreach ($material_id as $key => $product) {
+				$detail_material[] = [
+					'order_id'			=> $order_id,
+					'material_id'		=> $this->input->post('material_id['.$key.']'),
+					'qty_requested'		=> $this->input->post('qty_requested['.$key.']'),
+					'saved_price'		=> $this->input->post('material_price['.$key.']'),
+					'qty_received'		=> $this->input->post('qty_received['.$key.']')
+				];
+			}
+			$result = $this->M_roadmap->save_data_detail($detail_material);
+
+			if ($result > 0) {
+				$out['status'] = 'berhasil';
+			} else {
+				$out['status'] = 'gagal';
+			}
+
+		echo json_encode($out);
 	}
 
 	public function Update($id)

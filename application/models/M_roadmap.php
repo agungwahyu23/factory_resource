@@ -17,6 +17,12 @@ class M_roadmap extends CI_Model
 		return $result;
 	}
 
+	public function save_data_detail($data)
+	{
+		$result = $this->db->insert_batch('tb_order_detail', $data);
+		return $result;
+	}
+
 	public function select_by_id($id)
 	{
 		$sql = "SELECT tb_roadmap.*, 
@@ -42,18 +48,22 @@ class M_roadmap extends CI_Model
 		rd.material_id, 
 		rd.qty_sent,
 		rm.code,
+		rm.order_id,
+		od.qty_requested,
+		od.saved_price,
 		m.name 
 		FROM tb_roadmap_detail as rd
 		LEFT JOIN tb_roadmap as rm ON rm.id = rd.roadmap_id
 		LEFT JOIN tb_raw_material as m ON rd.material_id=m.id
-		where rd.roadmap_id = ?";
+		LEFT JOIN tb_order_detail AS od ON od.order_id = rm.order_id
+		where rd.roadmap_id = ? AND rd.material_id=od.material_id";
 		$data = $this->db->query($sql, array($id));
 		return $data->result();
 	}
 
 	public function update($data, $where)
 	{
-		$result = $this->db->update('tb_item', $data, $where);
+		$result = $this->db->update('tb_roadmap', $data, $where);
 		return $result;
 	}
 
