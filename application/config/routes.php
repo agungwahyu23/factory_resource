@@ -87,6 +87,8 @@ $route['roadmap-add'] =   'Roadmap/add';
 $route['roadmap-add/(:any)'] =   'Roadmap/add/$1';
 $route['roadmap-update/(:any)'] =   'Roadmap/update/$1';
 $route['roadmap-detail/(:any)'] =   'Roadmap/detail/$1';
+$route['list-detail-roadmap/(:any)'] = 'Roadmap/list_detail_roadmap/$1';
+$route['roadmap-acc/(:any)'] =   'Roadmap/acc/$1';
 
 /* return */
 $route['return'] =   'Returns/index';

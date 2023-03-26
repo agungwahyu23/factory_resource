@@ -57,8 +57,10 @@ class Roadmap extends CI_Controller {
 					$action = '<a href="' . base_url('roadmap-detail') . "/" . 
 					$roadmap->id . '" class="btn btn-primary btn-sm">View</a>';
 				}else{
-					$action = '<a href="' . base_url('roadmap-acc') . "/" . 
-					$roadmap->id . '" class="btn btn-warning btn-sm">Accept</a>';
+					$action = '<a href="' . base_url('roadmap-detail') . "/" . 
+					$roadmap->id . '" class="btn btn-primary btn-sm">View</a>';
+					$action .= '<a href="' . base_url('roadmap-acc') . "/" . 
+					$roadmap->id . '" class="btn btn-warning btn-sm ml-2">Accept</a>';
 				}
 			}elseif ($level == 2) { //jika yang login admin gudang
 				$action = '<div class="dropdown">';
@@ -74,6 +76,31 @@ class Roadmap extends CI_Controller {
 				$action .= ' </div>';
 			}
 			$row[] = $action;
+			
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw" => @$_POST['draw'],
+			"data" => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	public function list_detail_roadmap($id)
+	{
+		$roadmap_details = $this->M_roadmap->roadmap_detail($id);
+
+		$data = array();
+		$no = @$_POST['start'];
+		foreach ($roadmap_details as $rd) {
+
+			$no++;
+			$row = array();
+			$row[] = $no;
+			$row[] = $rd->code;
+			$row[] = $rd->qty_sent;
 			
 			$data[] = $row;
 		}
@@ -136,6 +163,17 @@ class Roadmap extends CI_Controller {
 	public function detail($id)
 	{
 		$data['page'] = "Detail Roadmap";
+		$data['roadmap'] = $this->M_roadmap->select_by_id($id);
+		$data['detail'] = $this->M_roadmap->roadmap_detail($id);
+
+		$data['content'] 	= "admin/v_roadmap/detail";
+
+		$this->loadkonten('admin/app_base',$data);
+	}
+
+	public function acc($id)
+	{
+		$data['page'] = "Acc Roadmap";
 		$data['roadmap'] = $this->M_roadmap->select_by_id($id);
 
 		$data['content'] 	= "admin/v_roadmap/detail";

@@ -51,7 +51,7 @@
 														<th>No</th>
 														<th>Code</th>
 														<th>Qty Sent</th>
-														<th>Qty Received</th>
+														<!-- <th>Qty Received</th> -->
 													</tr>
 												</thead>
 												<tbody>
@@ -74,3 +74,40 @@
     <!-- akhir card -->
 </div>
 <!-- /.container-fluid -->
+
+<script>
+	$(document).ready(function () {
+
+		//datatables
+		table = $('#dataTable').DataTable({
+
+			"processing": true, //Feature control the processing indicator.
+			"order": [], //Initial no order.
+			oLanguage: {
+				sProcessing: "<img src='<?php base_url(); ?>assets/admin/img/loading.gif' width='30px'>",
+				"sEmptyTable": "The data is not on the server",
+				"oPaginate": {
+					"sPrevious": "Prev"
+				}
+			},
+
+			// Load data for the table's content from an Ajax source
+			"ajax": {
+				"url": "<?php echo base_url('list-detail-roadmap/').$roadmap->id ?>",
+				"type": "POST"
+
+			},
+
+			//Set column definition initialisation properties.
+			"columnDefs": [{
+				"targets": [-1], //last column
+				"orderable": false, //set not orderable
+			}, ],
+
+		});
+	});
+
+	function reload_table() {
+		table.ajax.reload(null, false); //reload datatable ajax 
+	}
+</script>

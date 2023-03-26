@@ -60,7 +60,7 @@ class Request extends CI_Controller {
 			$action .= '<a class="dropdown-item" id="reject-request" href="#" data-id='."'".
 			$request->id."'".'> Reject</a>';
 			$action .= '<a class="dropdown-item" href="' . base_url('request-sent') . "/" . 
-			$request->id . '"> Accept</a>';
+			$request->id . '"> Send</a>';
 			
 			$action .= '    	</div>';
 			$action .= ' </div>';
