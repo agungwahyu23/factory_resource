@@ -52,15 +52,20 @@ class Request extends CI_Controller {
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
 			$action .= '<div class="dropdown-menu dropdown-menu-end">';
-			$action .= '<a class="dropdown-item" href="' . base_url('request-update') . "/" . 
-			$request->id . '"> Update</a>';
-			$action .= '<a class="dropdown-item delete-request" href="#" data-id='."'".
-			$request->id."'".'> Delete</a>';
 
-			$action .= '<a class="dropdown-item" id="reject-request" href="#" data-id='."'".
-			$request->id."'".'> Reject</a>';
-			$action .= '<a class="dropdown-item" href="' . base_url('request-sent') . "/" . 
-			$request->id . '"> Send</a>';
+			if ($this->session->userdata('level') == 1) { //akses action untuk produksi
+				$action .= '<a class="dropdown-item" href="' . base_url('request-update') . "/" . 
+				$request->id . '"> Update</a>';
+
+				// $action .= '<a class="dropdown-item delete-request" href="#" data-id='."'".
+				// $request->id."'".'> Delete</a>';
+			}elseif ($this->session->userdata('level') == 2) { //akses action untuk gudang
+				$action .= '<a class="dropdown-item" id="reject-request" href="#" data-id='."'".
+				$request->id."'".'> Reject</a>';
+				$action .= '<a class="dropdown-item" href="' . base_url('request-sent') . "/" . 
+				$request->id . '"> Send</a>';
+			}
+
 			
 			$action .= '    	</div>';
 			$action .= ' </div>';

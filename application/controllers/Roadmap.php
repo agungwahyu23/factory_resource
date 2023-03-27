@@ -67,11 +67,11 @@ class Roadmap extends CI_Controller {
 				$action = '<div class="dropdown">';
 				$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
 				$action .= '<div class="dropdown-menu dropdown-menu-end">';
-				$action .= '<a class="dropdown-roadmap" href="' . base_url('roadmap-detail') . "/" . 
+				$action .= '<a class="dropdown-item" href="' . base_url('roadmap-detail') . "/" . 
 				$roadmap->id . '"> Detail</a>';
-				$action .= '<a class="dropdown-roadmap" href="' . base_url('roadmap-update') . "/" . 
+				$action .= '<a class="dropdown-item" href="' . base_url('roadmap-update') . "/" . 
 				$roadmap->id . '"> Update</a>';
-				$action .= '<a class="dropdown-roadmap delete-roadmap" href="#" data-id='."'".
+				$action .= '<a class="dropdown-item delete-roadmap" href="#" data-id='."'".
 				$roadmap->id."'".'> Delete</a>';
 				$action .= '    	</div>';
 				$action .= ' </div>';

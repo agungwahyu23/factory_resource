@@ -34,7 +34,7 @@ class Auth extends CI_Controller {
 				'company' => $user['company'],
 			];
 				$this->session->set_userdata($session_data);
-				if ($user['level'] == '1' || $user['level'] == '2') {
+				if ($user['level'] == '1' || $user['level'] == '2' || $user['level'] == '3') {
 					$out['status'] = 'berhasil';
 				}else{
 					$out['status'] = 'gagal';

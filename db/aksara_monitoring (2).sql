@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Mar 2023 pada 12.37
+-- Waktu pembuatan: 27 Mar 2023 pada 15.48
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -52,7 +52,7 @@ CREATE TABLE `tb_employee` (
   `status` varchar(10) DEFAULT NULL,
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL COMMENT '0=default\r\n1=produksi\r\n2=gudang\r\n3=kepala produksi\r\n4=kepala gudang'
+  `level` int(11) DEFAULT NULL COMMENT '0=default\r\n1=produksi\r\n2=gudang\r\n3=head\r\n4=kepala gudang'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -61,7 +61,8 @@ CREATE TABLE `tb_employee` (
 
 INSERT INTO `tb_employee` (`id`, `code_employee`, `name_of_employee`, `no_telp`, `part_of`, `company`, `status`, `username`, `password`, `level`) VALUES
 (1, 'EMP202301', 'admin produksi', '085816908859', 'PRODUKSI', 'PT ABC', '1', 'admin_produksi', '21232f297a57a5a743894a0e4a801fc3', 1),
-(2, 'EMP202302', 'admin gudang', '085816908859', 'GUDANG', 'PT Mandiri', '1', 'admin_gudang', '21232f297a57a5a743894a0e4a801fc3', 2);
+(2, 'EMP202302', 'admin gudang', '085816908859', 'GUDANG', 'PT Mandiri', '1', 'admin_gudang', '21232f297a57a5a743894a0e4a801fc3', 2),
+(6, 'EMP202302', 'admin head', '085816908859', 'HEAD', 'PT Mandiri', '1', 'admin_head', 'fe01ce2a7fbac8fafaed7c982a04e229', 3);
 
 -- --------------------------------------------------------
 
@@ -350,7 +351,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT untuk tabel `tb_employee`
 --
 ALTER TABLE `tb_employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_item`
