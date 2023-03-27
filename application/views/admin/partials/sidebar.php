@@ -53,6 +53,12 @@
 		</li>
 	<?php } ?>
 
+	<li class="nav-item">
+        <a class="nav-link" href="<?= site_url('user') ?>">
+            <i class="fas fa-users fa-fw"></i>
+            <span>Employee</span></a>
+    </li>
+
     <!-- Transcation -->
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('setting') ?>">

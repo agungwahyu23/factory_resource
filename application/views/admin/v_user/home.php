@@ -12,10 +12,11 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Group</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Telp</th>
+                            <th>Part Of</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

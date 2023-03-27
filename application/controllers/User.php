@@ -31,29 +31,25 @@ class User extends CI_Controller {
 
 		$data = array();
 		$no = @$_POST['start'];
-		foreach ($list as $brand) {
+		foreach ($list as $user) {
 
 			$no++;
 			$row = array();
 			$row[] = $no;
-			$row[] = $brand->username;
-			$row[] = $brand->email;
-			if ($brand->gender == '0') {
-				$gender = 'Female';
-			} else if ($brand->gender == '1') {
-				$gender = 'Male';
-			}
-			$row[] = $gender;
-			$row[] = $brand->level;
+			$row[] = $user->code_employee;
+			$row[] = $user->name_of_employee;
+			$row[] = $user->no_telp;
+			$row[] = $user->part_of;
+			$row[] = $user->status;
 
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';
 			$action .= '<div class="dropdown-menu dropdown-menu-end">';
-			$action .= '<a class="dropdown-item" href="' . base_url('user-detail') . "/" . $brand->id_user . '"> Detail</a>';
+			$action .= '<a class="dropdown-item" href="' . base_url('user-detail') . "/" . $user->id . '"> Detail</a>';
 			$action .= '<a class="dropdown-item" href="' . base_url('user-update') . "/" . 
-			$brand->id_user .'"> Update</a>';
+			$user->id .'"> Update</a>';
 			$action .= '<a class="dropdown-item delete-user" href="#" data-id='."'".
-			$brand->id_user."'".'> Delete</a>';
+			$user->id."'".'> Delete</a>';
 			$action .= ' </div>';
 			$action .= ' </div>';
 			$row[] = $action;

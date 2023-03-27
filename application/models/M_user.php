@@ -17,7 +17,17 @@ class M_user extends CI_Model
 
 	public function getData()
 	{
-		$sql = "SELECT a.id as id_user, a.* , b.* FROM user a LEFT JOIN user_group b ON a.user_group=b.id ";
+		$sql = "SELECT u.id, 
+		u.code_employee, 
+		u.name_of_employee, 
+		u.no_telp, 
+		u.part_of,
+		CASE
+			WHEN u.status = '1' THEN 'Active'
+			WHEN u.status = '2' THEN 'Nonactive'
+			else '-' 
+		END as status
+		FROM tb_employee u";
 		$data = $this->db->query($sql);
 		return $data->result();
 	}
