@@ -31,36 +31,29 @@ class M_user extends CI_Model
 		$data = $this->db->query($sql);
 		return $data->result();
 	}
-
-	public function getGroup()
-	{
-		$sql = "SELECT * FROM user_group ORDER BY id ASC";
-		$data = $this->db->query($sql);
-		return $data->result();
-	}
 	
 	public function save_data($data)
 	{
-		$result = $this->db->insert('user', $data);
+		$result = $this->db->insert('tb_employee', $data);
 		return $result;
 	}
 
 	public function select_by_id($id)
 	{
-		$sql = "SELECT a.id as id_user, a.* , b.*  FROM user a LEFT JOIN user_group b ON a.user_group=b.id where a.id = ?";
+		$sql = "SELECT e.*  FROM tb_employee e where e.id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->row();
 	}
 
 	public function update($data, $where)
 	{
-		$result = $this->db->update('user', $data, $where);
+		$result = $this->db->update('tb_employee', $data, $where);
 		return $result;
 	}
 
 	public function hapus($id)
 	{
-		$sql = "DELETE FROM user WHERE id='" . $id . "'";
+		$sql = "DELETE FROM tb_employee WHERE id='" . $id . "'";
 
 		$this->db->query($sql);
 

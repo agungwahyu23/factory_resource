@@ -10,15 +10,44 @@
                 </div>
                 <div class="card-body">
                     <form id="form-add" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" id="username" autocomplete="off"
-                                placeholder="Enter Username" required>
+						<div class="form-group">
+                            <label for="code_employee">Code</label>
+                            <input type="text" class="form-control" value="<?= $code ?>" name="code_employee" id="code_employee" autocomplete="off"
+                                placeholder="Code Employee" readonly required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" autocomplete="off"
-                                placeholder="Enter Email">
+                            <label for="name_of_employee">Name*</label>
+                            <input type="text" class="form-control" name="name_of_employee" id="name_of_employee" autocomplete="off"
+                                placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no_telp">Telp</label>
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off"
+                                placeholder="Enter Telp">
+                        </div>
+                        <div class="form-group">
+                            <label for="part_of">Part Of</label>
+                           	<select name="part_of" id="part_of" class="form-control">
+								<option value="PRODUKSI">Production</option>
+								<option value="GUDANG">Warehouse</option>
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" class="form-control" name="company" id="company" autocomplete="off"
+                                placeholder="Enter company">
+                        </div>
+						<div class="form-group">
+                            <label for="status">Status</label>
+                           	<select name="status" id="status" class="form-control">
+								<option value="1">Active</option>
+								<option value="0">Nonactive</option>
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username*</label>
+                            <input type="text" class="form-control" name="username" id="username" autocomplete="off"
+                                placeholder="Enter Username" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
@@ -26,29 +55,13 @@
                                 placeholder="Enter Password" required>
                             <input type="checkbox" onclick="myFunction()">Show Password
                         </div>
-                        <div class="form-group">
-                            <label for="user_group">User Group</label>
-                            <select name="user_group" id="user_group" class="form-control selek-group">
-                                <option></option>
-                                <?php foreach ($group as $j) { ?>
-                                <option value="<?= $j->id ?>">
-                                    <?= $j->level ?> </option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class=" form-group">
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" value="1">Male
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" value="0">Female
-                                </label>
-                            </div>
+						<div class="form-group">
+                            <label for="level">Level*</label>
+                           	<select name="level" id="level" class="form-control">
+								<option value="0">Employee</option>
+								<option value="1">Production</option>
+								<option value="2">Warehouse</option>
+							</select>
                         </div>
                         <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
@@ -75,12 +88,6 @@ function myFunction() {
         x.type = "password";
     }
 }
-
-$(function() {
-    $(".selek-group").select2({
-        placeholder: " -- Select Group User -- "
-    });
-});
 
 $('#form-add').submit(function(e) {
     var data = $(this).serialize();
@@ -125,7 +132,7 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-        var link = '<?php echo base_url("user.html") ?>';
+        var link = '<?php echo base_url("user") ?>';
         window.location.replace(link);
     });
 }

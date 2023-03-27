@@ -69,7 +69,10 @@ class User extends CI_Controller {
 	{
 		$data['page'] 		= "Add User";
 		$data['content'] 	= "admin/v_user/add";
-		$data['group']= $this->M_user->getGroup();
+
+		// generate code with format REQ-random code
+		$random = mt_rand(1111,9999);
+		$data['code'] = 'EMP'.$random;
 
 		$this->loadkonten('admin/app_base',$data);
 	}
@@ -78,15 +81,15 @@ class User extends CI_Controller {
 	{
 			$id_user 	= $this->session->userdata('id_user');
 			$data = [
+				'code_employee' 		=> $this->input->post('code_employee'),
+				'name_of_employee' 		=> $this->input->post('name_of_employee'),
+				'no_telp' 		=> $this->input->post('no_telp'),
+				'part_of' 		=> $this->input->post('part_of'),
+				'company' 		=> $this->input->post('company'),
+				'status' 		=> $this->input->post('status'),
+				'level' 		=> $this->input->post('level'),
 				'username' 		=> $this->input->post('username'),
-				'email' 		=> $this->input->post('email'),
-				'password' 		=> md5($this->input->post('password')),
-				'user_group' 	=> $this->input->post('user_group'),
-				'gender' 		=> $this->input->post('gender'),
-				'created_date'	=> date('Y-m-d'),
-				'created_by'	=> $id_user,
-				'updated_date'	=> date('Y-m-d'),
-				'updated_by'	=> $id_user
+				'password' 		=> md5($this->input->post('password'))
 			];
 			
 		$result = $this->M_user->save_data($data);
@@ -104,7 +107,6 @@ class User extends CI_Controller {
 	{
 		$data['page'] = "Update User";
 		$data['user'] = $this->M_user->select_by_id($id);
-		$data['group']= $this->M_user->getGroup();
 		$data['content'] 	= "admin/v_user/update";
 
 		$this->loadkonten('admin/app_base',$data);
@@ -112,19 +114,35 @@ class User extends CI_Controller {
 
 	public function prosesUpdate()
 	{
-			$id_user 	= $this->session->userdata('id_user');
+			$password 	= $this->session->userdata('password');
 			$where = [
 				'id' 		   => $this->input->post('id')
 			];
-			$data = [
-				'username' 		=> $this->input->post('username'),
-				'email' 		=> $this->input->post('email'),
-				'password' 		=> md5($this->input->post('password')),
-				'user_group' 	=> $this->input->post('user_group'),
-				'gender' 		=> $this->input->post('gender'),
-				'updated_date'	    => date('Y-m-d'),
-				'updated_by'		=> $id_user
-			];
+			if (isset($password)) {
+				$data = [
+					'code_employee' 		=> $this->input->post('code_employee'),
+					'name_of_employee' 		=> $this->input->post('name_of_employee'),
+					'no_telp' 		=> $this->input->post('no_telp'),
+					'part_of' 		=> $this->input->post('part_of'),
+					'company' 		=> $this->input->post('company'),
+					'status' 		=> $this->input->post('status'),
+					'level' 		=> $this->input->post('level'),
+					'username' 		=> $this->input->post('username'),
+					'password' 		=> md5($this->input->post('password'))
+				];
+			}else{
+				$data = [
+					'code_employee' 		=> $this->input->post('code_employee'),
+					'name_of_employee' 		=> $this->input->post('name_of_employee'),
+					'no_telp' 		=> $this->input->post('no_telp'),
+					'part_of' 		=> $this->input->post('part_of'),
+					'company' 		=> $this->input->post('company'),
+					'status' 		=> $this->input->post('status'),
+					'level' 		=> $this->input->post('level'),
+					'username' 		=> $this->input->post('username'),
+					// 'password' 		=> md5($this->input->post('password'))
+				];
+			}
 			$result = $this->M_user->update($data, $where);
 
 			if ($result > 0) {

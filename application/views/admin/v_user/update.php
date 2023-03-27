@@ -7,64 +7,59 @@
             <div class="card">
                 <div class="card-body">
                     <form id="form-update" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $user->id_user ?>">
+                        <input type="hidden" class="form-control" name="id" id="id" value="<?= $user->id ?>">
                         <div class="form-group">
-                            <label for="username">Username</label>
+                            <label for="code">Code</label>
+                            <input type="text" class="form-control" name="code_employee" id="code_employee" autocomplete="off"
+                                placeholder="Code Employee" value="<?= $user->code_employee ?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name_of_employee">Name*</label>
+                            <input type="text" class="form-control" name="name_of_employee" id="name_of_employee" autocomplete="off"
+                                placeholder="Enter Name" required value="<?= $user->name_of_employee ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="no_telp">Telp</label>
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off"
+                                placeholder="Enter Telp" value="<?= $user->no_telp ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="part_of">Part Of</label>
+                           	<select name="part_of" id="part_of" class="form-control">
+								<option value="PRODUKSI" <?= $user->part_of == 'PRODUKSI' ? 'selected' : '' ?>>Production</option>
+								<option value="GUDANG" <?= $user->part_of == 'GUDANG' ? 'selected' : '' ?>>Warehouse</option>
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" class="form-control" name="company" id="company" autocomplete="off"
+                                placeholder="Enter company" value="<?= $user->company ?>">
+                        </div>
+						<div class="form-group">
+                            <label for="status">Status</label>
+                           	<select name="status" id="status" class="form-control">
+								<option value="1" <?= $user->status == '1' ? 'selected' : '' ?>>Active</option>
+								<option value="0" <?= $user->status == '0' ? 'selected' : '' ?>>Nonactive</option>
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username*</label>
                             <input type="text" class="form-control" name="username" id="username" autocomplete="off"
-                                value="<?= $user->username ?>">
+                                placeholder="Enter Username" required value="<?= $user->username ?>">
                         </div>
-                        <div class=" form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" id="email" autocomplete="off"
-                                value="<?= $user->email ?>">
-                        </div>
-                        <div class=" form-group">
+                        <div class="form-group">
                             <label>Password</label>
                             <input class="form-control" type="password" name="password" id="myInput"
-                                placeholder=" Empty this field, if you don't want to change the password">
+                                placeholder="Enter Password" required value="">
                             <input type="checkbox" onclick="myFunction()">Show Password
                         </div>
-                        <div class="form-group">
-                            <label for="user_group">User Group</label>
-                            <select name="user_group" id="user_group" class="form-control selek-group">
-                                <option></option>
-                                <?php foreach ($group as $j) : ?>
-                                <?php if ($j->id == $user->user_group) { ?>
-                                <option value="<?= $j->id ?>" selected>
-                                    <?= $j->level ?>
-                                </option>
-                                <?php } else { ?>
-                                <option value="<?= $j->id ?>"><?= $j->level ?>
-                                </option>
-                                <?php
-                                            }
-                                        endforeach; ?>
-                            </select>
-                        </div>
-                        <div class=" form-group">
-                            <?php
-                            if ($user->gender==0){
-                                $female="checked";
-                                $male="";
-                            }elseif ($user->gender==1) {
-                                $male="checked";
-                                $female="";
-                            }
-                            ?>
-                            <label for="gender">Gender</label>
-                            <br>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" <?= $male; ?> name="gender"
-                                        value="1">Male
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="gender" <?= $female; ?>
-                                        value="0">Female
-                                </label>
-                            </div>
+						<div class="form-group">
+                            <label for="level">Level*</label>
+                           	<select name="level" id="level" class="form-control">
+								<option value="0" <?= $user->level == '0' ? 'selected' : '' ?>>Employee</option>
+								<option value="1" <?= $user->level == '1' ? 'selected' : '' ?>>Production</option>
+								<option value="2" <?= $user->level == '2' ? 'selected' : '' ?>>Warehouse</option>
+							</select>
                         </div>
                         <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
                                 class="fas fa-save"></i>
@@ -92,11 +87,6 @@ function myFunction() {
     }
 }
 
-$(function() {
-    $(".selek-group").select2({
-        placeholder: " -- Select Group User -- "
-    });
-});
 
 $('#form-update').submit(function(e) {
     var data = $(this).serialize();
@@ -141,7 +131,7 @@ function save_berhasil() {
         icon: "success",
         button: "Ok",
     }).then(function() {
-        var link = '<?php echo base_url("user.html") ?>';
+        var link = '<?php echo base_url("user") ?>';
         window.location.replace(link);
     });
 }
