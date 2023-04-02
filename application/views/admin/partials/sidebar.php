@@ -52,6 +52,20 @@
 				</div>
 			</div>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+				aria-expanded="true" aria-controls="collapseReport">
+				<i class="fas fa-clipboard-list"></i>
+				<span>Report</span>
+			</a>
+			<div id="collapseReport" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" href="<?= site_url('report-item') ?>">Item</a>
+					<a class="collapse-item" href="<?= site_url('report-return') ?>">Return</a>
+					<a class="collapse-item" href="<?= site_url('report-request') ?>">Request</a>
+				</div>
+			</div>
+		</li>
 	<?php } ?>
 
 	<!-- sidebar untuk gudang -->

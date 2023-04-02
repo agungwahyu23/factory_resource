@@ -23,3 +23,5 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 <script src="<?php echo base_url(); ?>assets/admin/js/sweealert.js"></script>
 <script src="<?php echo base_url(); ?>assets/admin/vendor/sweetalert/sweetalert.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
