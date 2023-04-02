@@ -103,7 +103,7 @@ $route['user-update/(:any)'] =   'User/update/$1';
 $route['user-detail/(:any)'] =   'User/detail/$1';
 
 /* Report */
-$route['report-item'] =   'Report/index';
+$route['report-item'] =   'Report/item';
 $route['report-return'] =   'Report/return';
 $route['report-request'] =   'Report/index';
 $route['report-tes'] =   'Report/penerima_bantuan';

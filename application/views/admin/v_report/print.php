@@ -1,48 +1,78 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Cetak PDF</title>
-  <style>
-    .table {
-        border-collapse:collapse;
-        table-layout:fixed;width: 630px;
+    <meta charset="utf-8">
+    <style type="text/css">
+    p{
+        margin: 5px 0 0 0;
     }
-    .table th {
-        padding: 5px;
+        p.footer{
+        text-align: right;
+        font-size: 11px;
+        border-top: 1px solid #D0D0D0;
+        line-height: 32px;
+        padding: 0 10px 0 10px;
+        margin: 20px 0 0 0;
+        display: block;
     }
-    .table td {
-        word-wrap:break-word;
-        width: 20%;
-        padding: 5px;
+    .bold{
+        font-weight: bold;
     }
-  </style>
+
+    #footer {
+    clear: both;
+    position: relative;
+    height: 40px;
+    margin-top: -40px;
+    }
+    </style>
 </head>
-<body>
-    <h4 style="margin-bottom: 5px;">Data Transaksi</h4>
-  <?php echo $label ?>
-  <table class="table" border="1" width="100%" style="margin-top: 10px;">
-    <tr>
-      <th>Tanggal</th>
-      <th>Kode Transaksi</th>
-      <th>Barang</th>
-      <th>Jumlah</th>
-      <th>Total Harga</th>
-    </tr>
-    <?php
-        if(empty($transaksi)){ // Jika data tidak ada
-            echo "<tr><td colspan='5'>Data tidak ada</td></tr>";
-        }else{ // Jika jumlah data lebih dari 0 (Berarti jika data ada)
-            foreach($transaksi as $data){ // Looping hasil data transaksi
-                $tgl = date('d-m-Y', strtotime($data->tgl)); // Ubah format tanggal jadi dd-mm-yyyy
-                echo "<tr>";
-                echo "<td style='width: 80px;'>".$tgl."</td>";
-                echo "<td style='width: 100px;'>".$data->kode."</td>";
-                echo "<td style='width: 300px;'>".$data->barang."</td>";
-                echo "<td style='width: 60px;'>".$data->jumlah."</td>";
-                echo "<td style='width: 100px;'>".$data->total_harga."</td>";
-                echo "</tr>";
-            }
-        }
-    ?>
-  </table>
+<body style="font-size: 12px">
+
+	<p align="center">
+		<span style="font-size: 18px"><b> <?= $title ?></b></span> <br>
+	</p>
+
+	<hr>
+
+	<p>
+		<table>
+			<tr>
+				<th align="left"> Period </th>
+				<td> : <?= $period ?></td>
+			</tr>
+		</table>
+	</p>
+
+	<p>
+		<table style="border: 1px solid black;border-collapse: collapse;font-size: 11px" width="100%">
+			<tr style="margin: 5px">
+				<th style="border: 1px solid black;">No</th>
+				<th style="border: 1px solid black;">Date Order</th>
+				<th style="border: 1px solid black;">Trx Code</th>
+				<th style="border: 1px solid black;">Total TTB</th>
+			</tr>
+
+      <?php
+      $no = 1;
+      foreach ($data_req as $key => $value) { ?>
+        <tr style="margin: 5px">
+          <td style="border: 1px solid black;"><?= $no++ ?></td>
+          <td style="border: 1px solid black;"><?= $value->date_order ?></td>
+          <td style="border: 1px solid black;"><?= $value->code ?></td>
+          <td style="border: 1px solid black; text-align: center;"><?= $value->tot ?></td>
+        </tr>
+      
+      <?php } ?>
+			
+
+		</table>
+	</p>
+
+	<p class="footer">
+		<small>Tim Asset</small>
+	</p>
+
+
 </body>
 </html>
