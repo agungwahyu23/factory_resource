@@ -6,14 +6,27 @@ class M_return extends CI_Model
 
 	public function getData()
 	{
-		$sql = "SELECT * FROM tb_item ORDER BY id ASC";
+		$sql = "SELECT * FROM tb_return ORDER BY id ASC";
+		$data = $this->db->query($sql);
+		return $data->result();
+	}
+
+	public function order_list()
+	{
+		$sql = "SELECT * FROM tb_order ORDER BY id ASC";
 		$data = $this->db->query($sql);
 		return $data->result();
 	}
 
 	public function save_data($data)
 	{
-		$result = $this->db->insert('tb_item', $data);
+		$result = $this->db->insert('tb_return', $data);
+		return $result;
+	}
+
+	public function save_data_detail($data)
+	{
+		$result = $this->db->insert_batch('tb_return_detail', $data);
 		return $result;
 	}
 

@@ -13,9 +13,11 @@
                             <th>No</th>
                             <th>Code</th>
                             <th>Date Return</th>
-                            <th>Company</th>
                             <th>Status</th>
+                            <?php  
+							if ($this->session->userdata('level') == 2 ) { ?>
                             <th>Action</th>
+							<?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,11 +48,11 @@ $(document).ready(function() {
         },
 
         // Load data for the table's content from an Ajax source
-        // "ajax": {
-        //     "url": "<?php echo site_url('Returns/ajax_list') ?>",
-        //     "type": "POST"
+        "ajax": {
+            "url": "<?php echo site_url('Returns/ajax_list') ?>",
+            "type": "POST"
 
-        // },
+        },
 
         //Set column definition initialisation properties.
         "columnDefs": [{
@@ -98,6 +100,84 @@ $(document).on("click", ".delete-item", function() {
 function hapus_berhasil() {
     Swal.fire({
         title: "Deleted data successfully!",
+        text: "Click the Ok button to continue!",
+        icon: "success",
+        button: "Ok",
+    })
+}
+
+// reject action
+$(document).on("click", "#reject-return", function() {
+    var id = $(this).attr("data-id");
+    Swal.fire({
+        title: 'Reject return?',
+        text: "Sure you will reject this return?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Reject'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('Returns/reject'); ?>",
+                data: "id=" + id,
+                success: function(data) {
+                    $("tr[data-id='" + id + "']").fadeOut("fast",
+                        function() {
+                            $(this).remove();
+                        });
+					rejected();
+                    reload_table();
+                }
+            });
+        }
+    })
+});
+
+// accept action
+$(document).on("click", "#accept-return", function() {
+    var id = $(this).attr("data-id");
+    Swal.fire({
+        title: 'Accept return?',
+        text: "Sure you will accept this return?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Accept'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url('Returns/accept'); ?>",
+                data: "id=" + id,
+                success: function(data) {
+                    $("tr[data-id='" + id + "']").fadeOut("fast",
+                        function() {
+                            $(this).remove();
+                        });
+                        accepted();
+                    reload_table();
+                }
+            });
+        }
+    })
+});
+
+function rejected() {
+    Swal.fire({
+        title: "Rejected request successfully!",
+        text: "Click the Ok button to continue!",
+        icon: "success",
+        button: "Ok",
+    })
+}
+
+function accepted() {
+    Swal.fire({
+        title: "Rejected request successfully!",
         text: "Click the Ok button to continue!",
         icon: "success",
         button: "Ok",

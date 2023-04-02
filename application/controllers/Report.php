@@ -29,8 +29,8 @@ class Report extends CI_Controller {
         if(empty($tgl_awal) or empty($tgl_akhir))
         { // Cek jika tgl_awal atau tgl_akhir kosong, maka :
             $transaksi = $this->M_report->view_all();  // Panggil fungsi view_all yang ada di M_report
-            $url_cetak = 'transaksi/cetak';
-            $label = 'Semua Data Transaksi';
+            $url_cetak = 'Report/pdf_request';
+            $label = 'All Data Request';
         }else{ // Jika terisi
             $transaksi = $this->M_report->view_by_date($tgl_awal, $tgl_akhir);  // Panggil fungsi view_by_date yang ada di M_report
             $url_cetak = 'Report/pdf_request?tgl_awal='.$tgl_awal.'&tgl_akhir='.$tgl_akhir;
@@ -69,6 +69,32 @@ class Report extends CI_Controller {
         $data['label'] = $label;
         $data['content'] 	= "admin/v_report/list2";
         $data['page'] 		= "Report Request Data";
+
+        $this->loadkonten('admin/app_base',$data);
+    }
+
+    public function return()
+    {
+        $tgl_awal = $this->input->get('tgl_awal'); // Ambil data tgl_awal sesuai input (kalau tidak ada set kosong)
+        $tgl_akhir = $this->input->get('tgl_akhir'); // Ambil data tgl_awal sesuai input (kalau tidak ada set kosong)
+        
+        if(empty($tgl_awal) or empty($tgl_akhir))
+        { // Cek jika tgl_awal atau tgl_akhir kosong, maka :
+            $transaksi = $this->M_report->view_all();  // Panggil fungsi view_all yang ada di M_report
+            $url_cetak = 'Report/pdf_return';
+            $label = 'All Data';
+        }else{ // Jika terisi
+            $transaksi = $this->M_report->view_by_date_return($tgl_awal, $tgl_akhir);  // Panggil fungsi view_by_date yang ada di M_report
+            $url_cetak = 'Report/pdf_return?tgl_awal='.$tgl_awal.'&tgl_akhir='.$tgl_akhir;
+            $tgl_awal = date('d-m-Y', strtotime($tgl_awal)); // Ubah format tanggal jadi dd-mm-yyyy
+            $tgl_akhir = date('d-m-Y', strtotime($tgl_akhir)); // Ubah format tanggal jadi dd-mm-yyyy
+            $label = 'Periode Tanggal '.$tgl_awal.' s/d '.$tgl_akhir;
+        }
+        $data['transaksi'] = $transaksi;
+        $data['url_cetak'] = base_url($url_cetak);
+        $data['label'] = $label;
+        $data['content'] 	= "admin/v_report/list_return";
+        $data['page'] 		= "Report Return Data";
 
         $this->loadkonten('admin/app_base',$data);
     }
