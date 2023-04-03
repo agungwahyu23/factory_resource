@@ -10,30 +10,32 @@
                     Input data
                 </div>
                 <div class="card-body">
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label for="code">Code</label>
-									<input type="text" class="form-control" name="no_return" id="code" value="<?= $code ?>" autocomplete="off"
-										readonly placeholder="Enter Name">
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label for="name">Date Order</label>
-									<input type="text" class="form-control" name="date_return" id="date_order" autocomplete="off"
-										placeholder="Enter Item Name" value="<?= date('Y-m-d') ?>" readonly>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label for="name">Applicant</label>
-									<input type="hidden" name="emp_id" value="<?= $user['id'] ?>">
-									<input type="text" class="form-control" name="" id="" autocomplete="off"
-										placeholder="Enter Item Name" value="<?= $user['name_of_employee'] . ' - ' . $user['company'] ?>" readonly>
-								</div>
-							</div>
-							<!-- <div class="col-6">
+                	<div class="row">
+                		<div class="col-6">
+                			<div class="form-group">
+                				<label for="code">Code</label>
+                				<input type="text" class="form-control" name="no_return" id="code" value="<?= $code ?>"
+                					autocomplete="off" readonly placeholder="Enter Name">
+                			</div>
+                		</div>
+                		<div class="col-6">
+                			<div class="form-group">
+                				<label for="name">Date Order</label>
+                				<input type="text" class="form-control" name="date_return" id="date_order"
+                					autocomplete="off" placeholder="Enter Item Name" value="<?= date('Y-m-d') ?>"
+                					readonly>
+                			</div>
+                		</div>
+                		<div class="col-6">
+                			<div class="form-group">
+                				<label for="name">Applicant</label>
+                				<input type="hidden" name="emp_id" value="<?= $user['id'] ?>">
+                				<input type="text" class="form-control" name="" id="" autocomplete="off"
+                					placeholder="Enter Item Name"
+                					value="<?= $user['name_of_employee'] . ' - ' . $user['company'] ?>" readonly>
+                			</div>
+                		</div>
+                		<!-- <div class="col-6">
 								<div class="form-group">
 									<label for="name">Choose Order For Return</label>
 									<select name="order_id" id="order_id" class="form-control">
@@ -44,14 +46,14 @@
 									</select>
 								</div>
 							</div> -->
-							<div class="col-6">
-								<div class="form-group">
-									<label for="name">Note</label>
-									<input type="text" class="form-control" name="note" id="type" autocomplete="off"
-										placeholder="Enter Notes">
-								</div>
-							</div>
-						</div>
+                		<div class="col-6">
+                			<div class="form-group">
+                				<label for="name">Note</label>
+                				<input type="text" class="form-control" name="note" id="type" autocomplete="off"
+                					placeholder="Enter Notes">
+                			</div>
+                		</div>
+                	</div>
                         
                 </div>
             </div>

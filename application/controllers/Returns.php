@@ -161,6 +161,9 @@ class Returns extends CI_Controller {
 	{
 		$data['page'] = "Detail Return";
 		$data['return'] = $this->M_return->select_by_id($id);
+		$data['detail'] = $this->M_return->return_detail($id);
+		// var_dump($data['return']);
+		// die;
 
 		$data['content'] 	= "admin/v_return/detail";
 

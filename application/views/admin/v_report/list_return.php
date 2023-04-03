@@ -27,7 +27,7 @@
 							</div>
 						</div>
 					</div>
-					<button type="submit" name="filter" value="true" class="btn btn-primary">SHow</button>
+					<button type="submit" name="filter" value="true" class="btn btn-primary">Show</button>
 					<?php
                         if(isset($_GET['filter'])) // Jika user mengisi filter tanggal, maka munculkan tombol untuk reset filter
                         echo '<a href="'.base_url('Report/index').'" class="btn btn-default">RESET</a>';
@@ -62,11 +62,11 @@
                         echo "<tr><td colspan='5'>Data tidak ada</td></tr>";
                     }else{ // Jika jumlah data lebih dari 0 (Berarti jika data ada)
                         foreach($transaksi as $data){ // Looping hasil data transaksi
-                            $tgl = date('d-m-Y', strtotime($data->date_order)); // Ubah format tanggal jadi dd-mm-yyyy
+                            $tgl = date('d-m-Y', strtotime($data->date_return)); // Ubah format tanggal jadi dd-mm-yyyy
                             echo "<tr>";
                             echo "<td>".$tgl."</td>";
-                            echo "<td>".$data->code."</td>";
-                            echo "<td>".$data->status."</td>";
+                            echo "<td>".$data->no_return."</td>";
+                            echo "<td>".$data->tot."</td>";
                             echo "</tr>";
                         }
                     }

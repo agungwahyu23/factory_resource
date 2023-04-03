@@ -32,9 +32,19 @@ class M_return extends CI_Model
 
 	public function select_by_id($id)
 	{
-		$sql = "SELECT * FROM tb_item where id = ?";
+		$sql = "SELECT * FROM tb_return where id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->row();
+	}
+
+	public function return_detail($id)
+	{
+		$sql = "SELECT rd.item_id, rd.return_amount, rd.information, r.code, r.name
+		FROM tb_return_detail as rd
+		LEFT JOIN tb_raw_material as r ON rd.item_id=r.id
+		where rd.return_id = ?";
+		$data = $this->db->query($sql, array($id));
+		return $data->result();
 	}
 
 	public function update($data, $where)

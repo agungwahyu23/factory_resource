@@ -66,7 +66,7 @@
                             echo "<tr>";
                             echo "<td>".$tgl."</td>";
                             echo "<td>".$data->code."</td>";
-                            echo "<td>".$data->status."</td>";
+                            echo "<td>".$data->tot."</td>";
                             echo "</tr>";
                         }
                     }
