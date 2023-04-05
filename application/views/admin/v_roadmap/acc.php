@@ -10,7 +10,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<input type="hidden" class="form-control" name="id" id="id" value="<?= $roadmap->id ?>">
-								<input type="text" class="form-control" name="order_id" id="order_id" value="<?= $roadmap->order_id ?>">
+								<input type="hidden" class="form-control" name="order_id" id="order_id" value="<?= $roadmap->order_id ?>">
 								<div class="form-group">
 									<label for="code">Code</label>
 									<input type="text" class="form-control" name="code" id="code" value="<?= $roadmap->code ?>" autocomplete="off" readonly

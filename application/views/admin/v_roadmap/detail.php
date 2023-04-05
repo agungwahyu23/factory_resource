@@ -50,7 +50,9 @@
 													<tr>
 														<th>No</th>
 														<th>Code</th>
+														<th>Material Name</th>
 														<th>Qty Sent</th>
+														<th>Qty Received</th>
 														<!-- <th>Qty Received</th> -->
 													</tr>
 												</thead>

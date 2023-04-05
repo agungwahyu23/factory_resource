@@ -50,6 +50,7 @@ class M_roadmap extends CI_Model
 		rm.code,
 		rm.order_id,
 		od.qty_requested,
+		od.qty_received,
 		od.saved_price,
 		m.name 
 		FROM tb_roadmap_detail as rd

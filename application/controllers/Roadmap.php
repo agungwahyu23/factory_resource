@@ -101,7 +101,9 @@ class Roadmap extends CI_Controller {
 			$row = array();
 			$row[] = $no;
 			$row[] = $rd->code;
+			$row[] = $rd->name;
 			$row[] = $rd->qty_sent;
+			$row[] = isset($rd->qty_received) ? $rd->qty_received : '-';
 			
 			$data[] = $row;
 		}
