@@ -54,7 +54,10 @@ class M_request extends CI_Model
 
 	public function select_by_id($id)
 	{
-		$sql = "SELECT * FROM tb_order where id = ?";
+		$sql = "SELECT o.*, e.name_of_employee, e.company 
+		FROM tb_order as o 
+		LEFT JOIN tb_employee as e on o.emp_id = e.id 
+		where o.id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->row();
 	}

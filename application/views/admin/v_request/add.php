@@ -36,7 +36,7 @@
 							<div class="col-6">
 								<div class="form-group">
 									<label for="name">Note</label>
-									<input type="text" class="form-control" name="type" id="type" autocomplete="off"
+									<input type="text" class="form-control" name="note" id="note" autocomplete="off"
 										placeholder="Enter Notes">
 								</div>
 							</div>

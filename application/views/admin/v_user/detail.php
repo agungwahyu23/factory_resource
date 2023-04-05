@@ -5,39 +5,67 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-header">
+                    Please add data
+                </div>
                 <div class="card-body">
-                    <form id="form-update" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" readonly value="<?= $user->username ?>">
-                        </div>
-                        <div class=" form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" readonly value="<?= $user->email ?>">
-                        </div>
-                        <div class=" form-group">
-                            <label>Password</label>
-                            <input class="form-control" type="text" readonly value="<?= $user->password ?>">
-                        </div>
-                        <div class=" form-group">
-                            <label>User Group</label>
-                            <input type="text" class="form-control" value="<?= $user->level ?>" readonly>
+                    <form id="form-add" method="POST" enctype="multipart/form-data">
+						<div class="form-group">
+                            <label for="code_employee">Code</label>
+                            <input type="text" class="form-control" value="<?= $user->code_employee ?>" name="code_employee" id="code_employee" autocomplete="off"
+                                placeholder="Code Employee" readonly required>
                         </div>
                         <div class="form-group">
-                            <label>Gender</label>
-                            <input type="text" class="form-control" value="<?php
-                            if ($user->gender==0){
-                                echo 'Female';
-                            }elseif ($user->gender==1) {
-                                echo 'Male';
-                            }
-                            ?>" readonly>
-
+                            <label for="name_of_employee">Name</label>
+                            <input type="text" class="form-control" name="name_of_employee" id="name_of_employee" autocomplete="off"
+                                placeholder="Enter Name" value="<?= $user->name_of_employee ?>" readonly>
                         </div>
-                        <button class=" btn btn-primary mr-2" type="submit" id="btnSubmit" name="submit"><i
-                                class="fas fa-save"></i>
-                            Save</button>
-
+                        <div class="form-group">
+                            <label for="no_telp">Telp</label>
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off"
+                                placeholder="Enter Telp" value="<?= $user->no_telp ?>"readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="part_of">Part Of</label>
+							<input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off"
+                                placeholder="Part Of" value="<?= $user->part_of ?>"readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" class="form-control" name="company" id="company" autocomplete="off"
+                                placeholder="Enter company" value="<?= $user->company ?>"readonly>
+                        </div>
+						<div class="form-group">
+                            <label for="status">Status</label>
+							<input type="text" class="form-control" name="company" id="company" readonly autocomplete="off"
+                                placeholder="Enter company" value="<?php 
+								if ($user->company == 1) {
+									echo "Active";
+								}else{
+									echo "Nonactive";
+								}
+								?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username*</label>
+                            <input type="text" class="form-control" name="username" id="username" autocomplete="off"
+                                placeholder="Enter Username" value="<?= $user->username ?>" readonly>
+                        </div>
+						<div class="form-group">
+                            <label for="level">Level</label>
+							<input type="text" class="form-control" name="company" id="company" readonly autocomplete="off"
+                                placeholder="Enter company" value="<?php 
+								if ($user->level == 0) {
+									echo "Employee";
+								}elseif ($user->level == 1) {
+									echo "Admin Production";
+								}elseif ($user->level == 2){
+									echo "Admin Warehouse";
+								}else{
+									echo "Head Office";
+								}
+								?>">
+                        </div>
                         <a href="javascript:history.go(-1)" class="btn btn-danger" type="submit" name="submit"><i
                                 class="fas fa-chevron-left"></i> Back
                         </a>
@@ -58,69 +86,5 @@ function myFunction() {
     } else {
         x.type = "password";
     }
-}
-
-$(function() {
-    $(".selek-group").select2({
-        placeholder: " -- Select Group User -- "
-    });
-});
-
-$('#form-update').submit(function(e) {
-    var data = $(this).serialize();
-    // var data = new FormData($(this)[0]);
-    $.ajax({
-            // method: 'POST',
-            beforeSend: function() {
-                $(".loading2").show();
-                $(".loading2").modal('show');
-            },
-            url: '<?php echo base_url('User/prosesUpdate'); ?>',
-            type: "post",
-            enctype: "multipart/form-data",
-            // data: data,
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            cache: false,
-        })
-        .done(function(data) {
-            var result = jQuery.parseJSON(data);
-            console.log(data);
-            if (result.status == 'berhasil') {
-                document.getElementById("form-update").reset();
-                save_berhasil();
-            } else {
-                $(".loading2").hide();
-                $(".loading2").modal('hide');
-                gagal();
-
-            }
-        })
-    e.preventDefault();
-});
-</script>
-
-<script>
-function save_berhasil() {
-    Swal.fire({
-        title: "Data saved successfully!",
-        text: "Click the Ok button to continue!",
-        icon: "success",
-        button: "Ok",
-    }).then(function() {
-        var link = '<?php echo base_url("user.html") ?>';
-        window.location.replace(link);
-    });
-}
-
-function gagal() {
-    swal({
-        title: "Data failed to save!",
-        text: "Click the Ok button to continue!",
-        icon: "danger",
-        button: "Ok",
-        dangerMode: true,
-    });
 }
 </script>

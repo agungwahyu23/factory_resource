@@ -166,11 +166,11 @@ class Request extends CI_Controller {
 	public function prosesAdd()
 	{
 		$data = [
-			'emp_id' 			=> $this->input->post('code'),
+			'emp_id' 			=> $this->input->post('emp_id'),
 			'code' 			=> $this->input->post('code'),
 			'date_order' 		=> $this->input->post('date_order'),
 			'status' 		=> 1,
-			'type' 		=> $this->input->post('type'),
+			'note' 		=> $this->input->post('note'),
 		];
 			
 		$result = $this->M_request->save_data($data);
@@ -224,15 +224,14 @@ class Request extends CI_Controller {
 				'id' 		   => $this->input->post('id')
 			];
 			$data = [
-				'emp_id' 			=> $this->input->post('code'),
+				'emp_id' 			=> $this->input->post('emp_id'),
 				'code' 			=> $this->input->post('code'),
 				'date_order' 		=> $this->input->post('date_order'),
-				'status' 		=> 1,
-				'type' 		=> $this->input->post('type'),
+				'note' 		=> $this->input->post('note'),
 			];
 			$result = $this->M_request->update($data, $where);
 
-			$this->db->where('order_id', $where);
+			$this->db->where('order_id', $where['id']);
 			$this->db->delete('tb_order_detail');
 
 			$detail_material = [];

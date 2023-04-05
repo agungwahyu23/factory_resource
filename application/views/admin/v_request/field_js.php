@@ -181,6 +181,7 @@ $('#form-acc').submit(function(e) {
 // process edit data order
 $('#form-edit').submit(function(e) {
     var data = $(this).serialize();
+	console.log('sdfsd');
     $.ajax({
             beforeSend: function() {
                 $(".loading2").show();
