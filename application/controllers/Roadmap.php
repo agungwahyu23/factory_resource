@@ -69,8 +69,13 @@ class Roadmap extends CI_Controller {
 				$action .= '<div class="dropdown-menu dropdown-menu-end">';
 				$action .= '<a class="dropdown-item" href="' . base_url('roadmap-detail') . "/" . 
 				$roadmap->id . '"> Detail</a>';
-				$action .= '<a class="dropdown-item" href="' . base_url('roadmap-update') . "/" . 
-				$roadmap->id . '"> Update</a>';
+
+				// cek status sudah received/belum
+				if ($status != 3) {
+					$action .= '<a class="dropdown-item" href="' . base_url('roadmap-update') . "/" . 
+					$roadmap->id . '"> Update</a>';
+				}
+
 				$action .= '<a class="dropdown-item delete-roadmap" href="#" data-id='."'".
 				$roadmap->id."'".'> Delete</a>';
 				$action .= '    	</div>';
@@ -228,6 +233,7 @@ class Roadmap extends CI_Controller {
 	{
 		$data['page'] = "Update Roadmap";
 		$data['roadmap'] = $this->M_roadmap->select_by_id($id);
+		$data['detail'] = $this->M_roadmap->select_by_id_detail($id);
 
 		$data['content'] 	= "admin/v_roadmap/update";
 
@@ -240,15 +246,24 @@ class Roadmap extends CI_Controller {
 				'id' 		   => $this->input->post('id')
 			];
 			$data = [
-				'code' 			=> $this->input->post('code'),
-				'name' 			=> $this->input->post('name'),
-				'price' 		=> $this->input->post('price'),
-				'stock' 		=> $this->input->post('stock'),
-				'unit' 			=> $this->input->post('unit'),
-				'warehouse_id' 	=> $this->input->post('warehouse_id'),
-				
+				'status' 			=> $this->input->post('status'),
 			];
 			$result = $this->M_roadmap->update($data, $where);
+
+			$this->db->where('roadmap_id', $where['id']);
+			$this->db->delete('tb_roadmap_detail');
+
+			$detail_material = [];
+			$material_id = $this->input->post('material_id');
+
+			foreach ($material_id as $key => $product) {
+				$detail_material[] = [
+					'roadmap_id'		=> $where['id'],
+					'material_id'		=> $this->input->post('material_id['.$key.']'),
+					'qty_sent'		=> $this->input->post('qty_sent['.$key.']')
+				];
+			}
+			$result = $this->M_roadmap->save_detail_material($detail_material);
 
 			if ($result > 0) {
 				$out['status'] = 'berhasil';

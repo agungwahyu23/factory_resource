@@ -22,6 +22,12 @@ class M_roadmap extends CI_Model
 		$result = $this->db->insert_batch('tb_order_detail', $data);
 		return $result;
 	}
+	
+	public function save_detail_material($data)
+	{
+		$result = $this->db->insert_batch('tb_roadmap_detail', $data);
+		return $result;
+	}
 
 	public function select_by_id($id)
 	{
@@ -39,6 +45,24 @@ class M_roadmap extends CI_Model
 		where tb_roadmap.id = ?";
 		$data = $this->db->query($sql, array($id));
 		return $data->row();
+	}
+
+	public function select_by_id_detail($id)
+	{
+		$sql = "SELECT rd.id, 
+		rd.roadmap_id, 
+		rd.material_id, 
+		rd.qty_sent,
+		rm.code,
+		rm.order_id,
+		m.name,
+		m.code 
+		FROM tb_roadmap_detail as rd
+		LEFT JOIN tb_roadmap as rm ON rm.id = rd.roadmap_id
+		LEFT JOIN tb_raw_material as m ON rd.material_id=m.id
+		where rd.roadmap_id = ?";
+		$data = $this->db->query($sql, array($id));
+		return $data->result();
 	}
 
 	public function roadmap_detail($id)

@@ -2,10 +2,10 @@
 <div class="col-xl-12 col-lg-12 col-md-12">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-			<?php if ($this->session->userdata('level') == 2) { ?>
+			<!-- <?php if ($this->session->userdata('level') == 2) { ?>
 				<a href="<?= site_url('request-add') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 						class="fas fa-plus fa-sm text-white-50"></i> Add Data</a>
-			<?php } ?>
+			<?php } ?> -->
         </div>
         <div class="card-body">
             <div class="table-responsive">
