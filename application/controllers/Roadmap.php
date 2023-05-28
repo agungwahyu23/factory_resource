@@ -76,8 +76,8 @@ class Roadmap extends CI_Controller {
 					$roadmap->id . '"> Update</a>';
 				}
 
-				$action .= '<a class="dropdown-item delete-roadmap" href="#" data-id='."'".
-				$roadmap->id."'".'> Delete</a>';
+				// $action .= '<a class="dropdown-item delete-roadmap" href="#" data-id='."'".
+				// $roadmap->id."'".'> Delete</a>';
 				$action .= '    	</div>';
 				$action .= ' </div>';
 			}
