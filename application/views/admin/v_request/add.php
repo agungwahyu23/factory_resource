@@ -150,7 +150,7 @@
                 </td>
                 <td style="text-align: center;">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-xs" onclick="removeDetailMaterial('material_detail` + count_list_material + `');">
+                        <button type="button" class="btn btn-danger btn-xs" onclick="removeDetailMaterial('list_detail_material` + count_list_material + `');">
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
