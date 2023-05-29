@@ -13,6 +13,7 @@ class User extends CI_Controller {
 
 	public function loadkonten($page, $data) {
 		$data['username'] 	= $this->session->userdata('username');
+		$data['name_of_employee'] 	= $this->session->userdata('name_of_employee');
 		
 		$this->load->view($page, $data);
 	}
