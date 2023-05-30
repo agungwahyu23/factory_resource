@@ -27,12 +27,12 @@
 							</div>
 						</div>
 					</div>
-					<button type="submit" name="filter" value="true" class="btn btn-primary">TAMPILKAN</button>
+					<button type="submit" name="filter" value="true" class="btn btn-primary">Show</button>
 					<?php
                         if(isset($_GET['filter'])) // Jika user mengisi filter tanggal, maka munculkan tombol untuk reset filter
                         echo '<a href="'.base_url('Report/index').'" class="btn btn-default">RESET</a>';
                     ?>
-                <a class="btn btn-primary" target="_blank" href="<?php echo $url_cetak ?>">CETAK PDF</a>
+                <a class="btn btn-primary" target="_blank" href="<?php echo $url_cetak ?>">Print PDF</a>
 				</form>
 			</div>
 		</div>
