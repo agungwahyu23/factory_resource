@@ -78,7 +78,7 @@
 									<th class="text-center">Name</th>
 									<th class="text-center">Return Amount</th>
 									<th class="text-center">Note</th>
-									<th class="text-center">Aksi</th>
+									<th class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody id="detail_material">
