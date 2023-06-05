@@ -40,6 +40,7 @@ class Material extends CI_Controller {
 			$row[] = $material->code;
 			$row[] = $material->name;
 			$row[] = $material->price;
+			$row[] = isset($material->qty_total) ? $material->qty_total : 0;
 
 			$action = '<div class="dropdown">';
 			$action .= '<button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>';

@@ -106,6 +106,7 @@ class Request extends CI_Controller {
 			$action = '<a class="btn btn-sm btn-primary choose_material" href="#" 
 			data-id='."'". $request->id."'".' 
 			data-name='."'". $request->name."'".'
+			data-unit='."'". $request->unit."'".'
 			data-price='."'". $request->price."'".'> Pilih</a>';
 
 			$row[] = $action;

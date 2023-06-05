@@ -17,6 +17,7 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Stock</th>
 							<!-- cek session produksi atau gudang -->
 							<?php  
 							if ($this->session->userdata('level') == 2) { ?>

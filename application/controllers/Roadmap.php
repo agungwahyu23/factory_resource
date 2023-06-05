@@ -221,6 +221,23 @@ class Roadmap extends CI_Controller {
 			}
 			$result = $this->M_roadmap->save_data_detail($detail_material);
 
+			foreach ($material_id as $key => $product) {
+				$sum_qty_received =$this->db->query("SELECT SUM(tb_order_detail.qty_received) as sum
+				FROM tb_order_detail 
+				LEFT JOIN tb_order ON tb_order.id = tb_order_detail.order_id 
+				LEFT JOIN tb_roadmap ON tb_roadmap.order_id = tb_order.id 
+				WHERE tb_roadmap.status = 3 
+				AND tb_order_detail.material_id = '".$product."'")->result();
+				
+				
+				$result_val = floatval($sum_qty_received[0]->sum);
+
+				$this->db->set('qty_total', $result_val);
+				$this->db->where('id', $product);
+				$this->db->update('tb_raw_material'); 
+			}
+
+
 			if ($result > 0) {
 				$out['status'] = 'berhasil';
 			} else {

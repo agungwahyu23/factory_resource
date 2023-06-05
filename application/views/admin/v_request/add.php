@@ -64,6 +64,7 @@
 								<tr>
 									<th class="text-center">Name</th>
 									<th class="text-center">Qty Requested</th>
+									<th class="text-center">Unit</th>
 									<th class="text-center">Aksi</th>
 								</tr>
 							</thead>
@@ -137,6 +138,7 @@
 		var id_material = $(this).attr("data-id");
         var material_name = $(this).attr("data-name");
         var material_price = $(this).attr("data-price");
+        var material_unit = $(this).attr("data-unit");
 		
 		detail_material_html = `
             <tr id="list_detail_material` + count_list_material + `">
@@ -148,6 +150,9 @@
                 <td>
                     <input type="text" class="form-control " name="qty_requested[]" type="text" id="qty_requested` + count_list_material + `">
                 </td>
+				<td>
+					<input type="text" class="form-control" name="unit[]" type="text" id="unit` + count_list_material + `" value="`+material_unit+`" readonly>
+				</td>
                 <td style="text-align: center;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-danger btn-xs" onclick="removeDetailMaterial('list_detail_material` + count_list_material + `');">
